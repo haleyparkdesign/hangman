@@ -99,7 +99,7 @@ public class SinglePlayerRound {
      * Tests the class
      */
     public static void main(String[] args) {
-        SinglePlayerRound spr = new SinglePlayerRound("wellesley.txt");
+        SinglePlayerRound spr = new SinglePlayerRound("./texts/wellesley.txt");
         System.out.println(spr.game);
         spr.game.round();
     }

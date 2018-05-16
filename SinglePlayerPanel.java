@@ -133,7 +133,7 @@ public class SinglePlayerPanel extends JPanel {
                     }
                 }
 
-                String categoryFileName = categoryName + ".txt";
+                String categoryFileName = "./texts/" + categoryName + ".txt";
                 System.out.println("You chose the category of: " + categoryName);
                 categoryLabel.setText("Category is: " + categoryName);
 
