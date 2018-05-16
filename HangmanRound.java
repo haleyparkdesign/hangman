@@ -13,6 +13,7 @@ public class HangmanRound
     // instance variables
     private String original;
     private HashSet word;
+    private LinkedList guessed;
 
     /**
      * Constructor for objects of class HangmanRound
@@ -27,8 +28,10 @@ public class HangmanRound
         for (char c : w.toCharArray()){
             word.add(c);
         }
+
+        guessed = new LinkedList();
     }
-    
+
     public String toString(){
         String s = "";
         for (Object c : word){
@@ -36,13 +39,11 @@ public class HangmanRound
         }
         return s;
     }
-    
+
     public void round(){
         Scanner scan = new Scanner(System.in);
         int count = 0;
-        
-        LinkedList guessed = new LinkedList();
-        
+
         while (count < word.size()){
             System.out.println("Enter a guess");
             char guess = scan.next().charAt(0);
@@ -63,9 +64,9 @@ public class HangmanRound
         }
         scan.close();
         System.out.println("The word was " + original + ". It took you " + guessed.size()
-             + " guesses. These are the letters you guessed: " + guessed);
+            + " guesses. These are the letters you guessed: " + guessed);
     }
-    
+
     public static void main (String[] args){
         HangmanRound test = new HangmanRound("yellow");
         System.out.println(test);

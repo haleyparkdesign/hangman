@@ -29,11 +29,8 @@ public class HangmanGUI extends JPanel {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Hangman");
-        frame.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent e) {
-                    System.exit(0);
-                }
-            });
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         frame.getContentPane().add(new HangmanGUI(),BorderLayout.CENTER);
         frame.setSize(1000, 600);
         frame.setVisible(true);
