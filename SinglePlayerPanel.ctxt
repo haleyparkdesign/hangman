@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=SinglePlayerPanel
-comment0.text=\n\ Write\ a\ description\ of\ class\ SinglePlayerGamePanel\ here.\n\n\ @author\ Haley\ Park\n\ @version\ May\ 15,\ 2018\n
+comment0.text=\n\ GUI\ elements\ for\ single\ player\ option\n\n\ @author\ Haley\ Park\n\ @version\ May\ 15,\ 2018\n
 comment1.params=
 comment1.target=SinglePlayerPanel()
 comment2.params=
