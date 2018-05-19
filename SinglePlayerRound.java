@@ -4,7 +4,7 @@ import java.io.*;
 /**
  * Write a description of class SinglePlayerRound here.
  *
- * @author (your name)
+ * @author Margaret Harrigan, Haley Park
  * @version (a version number or a date)
  */
 public class SinglePlayerRound {
@@ -13,7 +13,9 @@ public class SinglePlayerRound {
     private String original;
     private HashSet word;
     private LinkedList guessed, wrongGuesses;
-    int count;
+    final int numBodyParts = 9;
+    private int count;
+    boolean won, lost;
 
     /**
      * Constructor for objects of class SinglePlayerRound
@@ -37,7 +39,7 @@ public class SinglePlayerRound {
 
             randomIndex = (int)(Math.round(Math.random() * dictionary.size()));
 
-            //randomly chooses letter from the category
+            //randomly chooses a word from the category
             original = dictionary.get(randomIndex);
             for (char c : original.toCharArray()){
                 word.add(c);
@@ -69,6 +71,35 @@ public class SinglePlayerRound {
                 + " guesses. These are the letters you guessed: " + guessed);
         }
     }
+    
+    public Vector<Integer> letterFit(char guess) {
+        Vector<Integer> correctLetterPos = new Vector<Integer>();
+        char[] charArray = original.toCharArray();
+        
+        for (int i = 0; i < charArray.length; i++) {
+            if (charArray[i] == guess)
+                correctLetterPos.add(i);
+        }
+        
+        return correctLetterPos;
+    }
+    
+    public boolean didPlayerLose() {
+        if (wrongGuesses.size() > numBodyParts) 
+            lost = true;
+        return lost;
+    }
+    
+    public boolean didPlayerWin() {
+        if (wrongGuesses.size() > numBodyParts) 
+            lost = true;
+        return lost;
+    }
+    
+    public boolean isGameEnd() {
+        if (won || lost) return true;
+        else return false;
+    }
 
     public String getHint() {
         String hintChar = "";
@@ -94,12 +125,17 @@ public class SinglePlayerRound {
     public int getNumWrongGuesses() {
         return wrongGuesses.size();
     }
+    
+    public String getOriginal() {
+        return this.original;
+    }
 
     /**
      * Tests the class
      */
     public static void main(String[] args) {
         SinglePlayerRound spr = new SinglePlayerRound("./texts/wellesley.txt");
+        System.out.println(spr.word);
         System.out.println(spr.game);
         spr.game.round();
     }

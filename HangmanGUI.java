@@ -26,7 +26,6 @@ public class HangmanGUI extends JPanel {
         add(hangmanGUI);
     }
 
-
     public static void main(String[] args) {
         JFrame frame = new JFrame("Hangman");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,4 +35,3 @@ public class HangmanGUI extends JPanel {
         frame.setVisible(true);
     }
 }
-
