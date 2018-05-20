@@ -16,8 +16,8 @@ public class Hangman
     public Hangman(String category)
     {
         // initialise instance variables
-        //Scanner reader = new Scanner(new File(category));
-
+        Scanner reader = new Scanner(new File(category));
+        
     }
 
     public Hangman(String player1, String player2){
@@ -43,9 +43,9 @@ public class Hangman
             rounds++;
         }
     }
-
+    
     public static void main (String[] args){
         Hangman test = new Hangman("one", "two");
-
+        
     }
 }
