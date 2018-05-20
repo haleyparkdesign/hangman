@@ -80,6 +80,7 @@ public class MultiPlayerPanel extends JPanel {
 
     private JPanel makeMultiPlayerGamePanel1() {
         JPanel panel = new JPanel();
+        JLabel currentPlayerLabel = new JLabel("Player 1's turn", JLabel.CENTER);
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         
@@ -166,12 +167,14 @@ public class MultiPlayerPanel extends JPanel {
         skipButton1 = new JButton("Skip");
         skipButton1.addActionListener(new ButtonListener());
         panel.add(skipButton1, c);
+        panel.add(currentPlayerLabel);
         return panel;
                
     }
     
     private JPanel makeMultiPlayerGamePanel2() {
         JPanel panel = new JPanel();
+        JLabel currentPlayerLabel = new JLabel("Player 2's turn", JLabel.CENTER);
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         //PANEL 2
@@ -257,7 +260,7 @@ public class MultiPlayerPanel extends JPanel {
         skipButton2.addActionListener(new ButtonListener());
         panel.add(skipButton2, c);
 
-
+        panel.add(currentPlayerLabel);
         return panel;
     }
 
@@ -318,6 +321,9 @@ public class MultiPlayerPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             char guessedChar1;
             char guessedChar2;  
+            LinkedList<Character> wrongGuesses1 = new LinkedList<Character>();
+            LinkedList<Character> wrongGuesses2 = new LinkedList<Character>();
+
 
             if (e.getSource() == guessWord1) {
                 word1 = guessWord1.getText();
@@ -332,25 +338,29 @@ public class MultiPlayerPanel extends JPanel {
                 cardPanel.add(gamePlayPanel2, "4");
                 cardLayout.next(cardPanel);
             }
-         
-            LinkedList<Character> wrongGuesses1 = newRound.getWrongGuesses1();
-            LinkedList<Character> wrongGuesses2 = newRound.getWrongGuesses2();
-            if (e.getSource() == guessField1 && newRound.currentPlayer % 2 == 0) {
+            newRound = new MultiPlayerRound(word1, word2);
+            wrongGuesses1 = newRound.getWrongGuesses1();
+            wrongGuesses2 = newRound.getWrongGuesses2();
+            
+            if (e.getSource() == guessField1) {
                 String input = guessField1.getText();
                 System.out.println("Input: " + input);
                 guessedChar1 = input.charAt(0);
     
                 newRound.makeGuess1(guessedChar1);
                 guessField1.setText("");
-                             
-                for (int i = 0; i < wrongGuesses1.size(); i++) {
-                    wrongGuessLabels1[i].setText("" + wrongGuesses1.get(i));
+                System.out.println(newRound.getWrongGuesses1());
+                if (newRound.getWrongGuesses1().size() > 0) {
+                    for (int i = 0; i < wrongGuesses1.size(); i++) {
+                        wrongGuessLabels1[i].setText("" + wrongGuesses1.get(i));
+                    }
                 }
     
                 fillBlanks(guessedChar1);
                 setImage();
+                
             }
-            else if (e.getSource() == guessField2 && newRound.currentPlayer % 2 != 0) {
+            else if (e.getSource() == guessField2) {
                 String input = guessField2.getText();
                 System.out.println("Input: " + input);
                 guessedChar2 = input.charAt(0);

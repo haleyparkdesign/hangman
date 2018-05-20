@@ -41,7 +41,7 @@ public class MultiPlayerRound {
         }
         
         for (int i = 0; i < word2.length(); i++) {
-            word2Set.add(word1.charAt(i));
+            word2Set.add(word2.charAt(i));
         }
 
         
