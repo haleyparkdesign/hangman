@@ -1,4 +1,12 @@
 #BlueJ class context
 comment0.target=MultiPlayerPanel
-comment0.text=\n\ Write\ a\ description\ of\ class\ MultiPlayerGamePanel\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
-numComments=1
+comment0.text=\n\ GUI\ elements\ for\ single\ player\ option\n\n\ @author\ Denise\ Chai,\ Haley\ Park\n\ @version\ May\ 15,\ 2018\n
+comment1.params=
+comment1.target=MultiPlayerPanel()
+comment2.params=
+comment2.target=javax.swing.JPanel\ makeEnterWordPanel1()
+comment3.params=
+comment3.target=javax.swing.JPanel\ makeEnterWordPanel2()
+comment4.params=
+comment4.target=javax.swing.JPanel\ makeMultiPlayerGamePanel()
+numComments=5
