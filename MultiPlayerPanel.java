@@ -16,7 +16,7 @@ import java.util.LinkedList;
 public class MultiPlayerPanel extends JPanel {
     private JButton[] buttons;
     private CardLayout cardLayout = new CardLayout();
-    private JPanel cardPanel,cardPanel2, enterLetterPanel,gamePlayPanel, enterWordPanel1, enterWordPanel2;
+    private JPanel cardPanel,cardPanel2, enterLetterPanel,gamePlayPanel1, gamePlayPanel2, enterWordPanel1, enterWordPanel2;
     private JLabel guessLabel1, guessLabel2, wrongGuesses1, hintLabel1, hintLabel2, imageLabel1, imageLabel2;
     private JTextField guessField1, guessField2;
     private JTextField guessWord1;
@@ -78,7 +78,7 @@ public class MultiPlayerPanel extends JPanel {
     }
     
 
-    private JPanel makeMultiPlayerGamePanel() {
+    private JPanel makeMultiPlayerGamePanel1() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -129,8 +129,8 @@ public class MultiPlayerPanel extends JPanel {
             letters1[i] = new JTextField("  ");
             letters1[i].setHorizontalAlignment(JTextField.CENTER);
             letters1[i].setEnabled(false);
-            letters1[i].setPreferredSize(new Dimension(20, 40));
-            letters1[i].setFont(new Font("Sans-Serif", Font.BOLD, 20));
+            letters1[i].setPreferredSize(new Dimension(40, 60));
+            letters1[i].setFont(new Font("Sans-Serif", Font.BOLD, 30));
             letterBoxesArea1.add(letters1[i]);
         }
         lettersArea1.add(letterBoxesArea1, BorderLayout.NORTH);
@@ -166,9 +166,13 @@ public class MultiPlayerPanel extends JPanel {
         skipButton1 = new JButton("Skip");
         skipButton1.addActionListener(new ButtonListener());
         panel.add(skipButton1, c);
-        
-        
-        
+        return panel;
+               
+    }
+    private JPanel makeMultiPlayerGamePanel2() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
         //PANEL 2
         int numTextFields2 = newRound.getWord2().length();
    
@@ -214,8 +218,8 @@ public class MultiPlayerPanel extends JPanel {
             letters2[i] = new JTextField("  ");
             letters2[i].setHorizontalAlignment(JTextField.CENTER);
             letters2[i].setEnabled(false);
-            letters2[i].setPreferredSize(new Dimension(20, 40));
-            letters2[i].setFont(new Font("Sans-Serif", Font.BOLD, 20));
+            letters2[i].setPreferredSize(new Dimension(40, 60));
+            letters2[i].setFont(new Font("Sans-Serif", Font.BOLD, 30));
             letterBoxesArea2.add(letters2[i]);
         }
         lettersArea2.add(letterBoxesArea2, BorderLayout.NORTH);
@@ -274,9 +278,11 @@ public class MultiPlayerPanel extends JPanel {
          
                 newRound = new MultiPlayerRound();
 
-                gamePlayPanel = makeMultiPlayerGamePanel();
+                gamePlayPanel1 = makeMultiPlayerGamePanel1();
+                gamePlayPanel2 = makeMultiPlayerGamePanel2();
     
-                cardPanel.add(gamePlayPanel, "3");
+                cardPanel.add(gamePlayPanel1, "3");
+                cardPanel.add(gamePlayPanel2, "4");
           
 
                 //hide the categories panel, show game panel
@@ -287,12 +293,14 @@ public class MultiPlayerPanel extends JPanel {
         private void resetGame() {
             cardPanel.removeAll();
   
-            gamePlayPanel = makeMultiPlayerGamePanel();
+            gamePlayPanel1 = makeMultiPlayerGamePanel1();
+            gamePlayPanel2 = makeMultiPlayerGamePanel2();
  
             cardPanel = new JPanel();
             cardPanel.setLayout(cardLayout);
 
-            cardPanel.add(gamePlayPanel, "3");
+            cardPanel.add(gamePlayPanel1, "3");
+            cardPanel.add(gamePlayPanel2, "4");
 
 
             add(cardPanel);
@@ -329,8 +337,7 @@ public class MultiPlayerPanel extends JPanel {
     
                 newRound.makeGuess1(guessedChar1);
                 guessField1.setText("");
-                         
-    
+                             
                 for (int i = 0; i < wrongGuesses1.size(); i++) {
                     wrongGuessLabels1[i].setText("" + wrongGuesses1.get(i));
                 }
