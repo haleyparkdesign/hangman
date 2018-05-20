@@ -23,12 +23,9 @@ public class MultiPlayerRound {
     /**
      * Constructor for objects of class SinglePlayerRound
      */
-    public MultiPlayerRound () {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Player 1 please enter a word.");
-        word1 = sc.nextLine();
-        System.out.println("Player 2 please enter a word.");
-        word2 = sc.nextLine();
+    public MultiPlayerRound (String word1, String word2) {
+        this.word1 = word1;
+        this.word2 = word2;
         int randomIndex;
         currentPlayer = 0;
         dictionary = new Vector<String>();

@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=MultiPlayerRound
 comment0.text=\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=
-comment1.target=MultiPlayerRound()
+comment1.params=word1\ word2
+comment1.target=MultiPlayerRound(java.lang.String,\ java.lang.String)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ SinglePlayerRound\n
 comment10.params=
 comment10.target=java.lang.String\ getWrongGuesses1String()

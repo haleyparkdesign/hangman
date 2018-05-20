@@ -25,6 +25,7 @@ public class MultiPlayerPanel extends JPanel {
     private JButton hintButton1, skipButton1, hintButton2, skipButton2;
     private MultiPlayerRound newRound;
     private JLabel[] wrongGuessLabels1, wrongGuessLabels2;
+    String word1, word2;
 
     public MultiPlayerPanel() {
         
@@ -34,16 +35,15 @@ public class MultiPlayerPanel extends JPanel {
         enterWordPanel1 = makeEnterWordPanel1();
         enterWordPanel2 = makeEnterWordPanel2();
         //gamePlayPanel = makeMultiPlayerGamePanel();
-       
+        
         cardPanel = new JPanel();
         cardPanel.setLayout(cardLayout);
         cardPanel.add(enterWordPanel1, "1");
         
         cardPanel.add(enterWordPanel2, "2");
-        
+                
         add(cardPanel);
       
-
         // initialize with showing the categories panel
         cardLayout.first(cardPanel);
        
@@ -84,7 +84,7 @@ public class MultiPlayerPanel extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         
         //PANEL 1
-        int numTextFields1 = newRound.getWord1().length();
+        int numTextFields1 = word1.length();
    
         JPanel topPanel1 = new JPanel();
         JPanel lettersArea1 = new JPanel();
@@ -169,12 +169,13 @@ public class MultiPlayerPanel extends JPanel {
         return panel;
                
     }
+    
     private JPanel makeMultiPlayerGamePanel2() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         //PANEL 2
-        int numTextFields2 = newRound.getWord2().length();
+        int numTextFields2 = this.word2.length();
    
         JPanel topPanel2 = new JPanel();
         JPanel lettersArea2 = new JPanel();
@@ -270,13 +271,16 @@ public class MultiPlayerPanel extends JPanel {
                     hintLabel2.setText(newRound.getHint2());
                 }
             } else if (event.getSource() == skipButton1 || event.getSource() == skipButton2) {
-                //hide the game panel, show categories panel
-                cardLayout.first(cardPanel);
-                //gamePlayPanel = makeSinglePlayerGamePanel();
-                resetGame();
+                if (event.getSource() == skipButton1) {
+                    cardLayout.next(cardPanel);
+                
+                }
+                else {
+                    cardLayout.previous(cardPanel);
+                }                
             } else {
          
-                newRound = new MultiPlayerRound();
+                newRound = new MultiPlayerRound(word1, word2);
 
                 gamePlayPanel1 = makeMultiPlayerGamePanel1();
                 gamePlayPanel2 = makeMultiPlayerGamePanel2();
@@ -313,23 +317,24 @@ public class MultiPlayerPanel extends JPanel {
     private class TextFieldListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             char guessedChar1;
-            char guessedChar2;
+            char guessedChar2;  
 
-            LinkedList<Character> wrongGuesses1 = newRound.getWrongGuesses1();
-            LinkedList<Character> wrongGuesses2 = newRound.getWrongGuesses2();
-            
-            
             if (e.getSource() == guessWord1) {
-                newRound.word1= guessWord1.getText();
-                cardLayout.next(cardPanel);             
+                word1 = guessWord1.getText();
+                gamePlayPanel1 = makeMultiPlayerGamePanel1();
+                cardPanel.add(gamePlayPanel1, "3");
+                cardLayout.next(cardPanel);               
             }
-            
+
             else if (e.getSource() == guessWord2) {
-                newRound.word2= guessWord2.getText();
+                word2 = guessWord2.getText();
+                gamePlayPanel2 = makeMultiPlayerGamePanel2();          
+                cardPanel.add(gamePlayPanel2, "4");
                 cardLayout.next(cardPanel);
             }
-            
-            
+         
+            LinkedList<Character> wrongGuesses1 = newRound.getWrongGuesses1();
+            LinkedList<Character> wrongGuesses2 = newRound.getWrongGuesses2();
             if (e.getSource() == guessField1 && newRound.currentPlayer % 2 == 0) {
                 String input = guessField1.getText();
                 System.out.println("Input: " + input);
@@ -361,6 +366,8 @@ public class MultiPlayerPanel extends JPanel {
                 fillBlanks(guessedChar2);
                 setImage();
             }
+                        
+
         }
 
         private void fillBlanks(char guessedChar) {
