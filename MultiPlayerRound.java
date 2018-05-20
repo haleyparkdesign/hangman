@@ -17,8 +17,8 @@ public class MultiPlayerRound {
     String word1;
     String word2;
     int currentPlayer;
-    int count1 = 0;
-    int count2 = 0;
+    int count1;
+    int count2;
 
     /**
      * Constructor for objects of class SinglePlayerRound
@@ -35,6 +35,8 @@ public class MultiPlayerRound {
         guessed2 = new LinkedList();
         wrongGuesses1 = new LinkedList();
         wrongGuesses2 = new LinkedList();
+        count1 = 0;
+        count2 = 0;
 
         for (int i = 0; i < word1.length(); i++) {
             word1Set.add(word1.charAt(i));
@@ -50,13 +52,14 @@ public class MultiPlayerRound {
     public void makeGuess1(char guess) {
         if (!player1Win && !player2Win ){
             if (!guessed1.contains(guess)) {
-                if (word1.indexOf(guess) > 0) {
+                if (word1.indexOf(guess) >= 0) {
+                    System.out.println(count1);
                     System.out.println(guess + " is in the word");
-                    count1++;
+                    count1++;          
+                    System.out.println(count1);
                     guessed1.add(guess);
                 } else {
                     System.out.println(guess + " is not in the word :(");
-                    count1++;
                     wrongGuesses1.add(guess);
                     guessed1.add(guess);
                 }
@@ -67,19 +70,34 @@ public class MultiPlayerRound {
             System.out.println("The word was " + word1 + ". It took Player1 " + guessed1.size()
                 + " guesses. These are the letters you guessed: " + guessed1);
         }
+        
+        System.out.println("count1 so far " + count1 + "setSize2 " + word1Set.size());
+        System.out.println("count2 so far " + count2 + "setSize2 " + word2Set.size());
+       
+        if (wrongGuesses2.size() == 9 || count1 == word1Set.size()) {
+            player1Win = true;
+            player2Win = false;
+            System.out.println("player 1 won");
+            
+        }
+
+        if (wrongGuesses2.size() == 9 || count2 == word2Set.size()) {
+            player1Win = true;
+            player2Win = false;
+            System.out.println("player 2 won");
+        }
     }
     
     public void makeGuess2(char guess) {
         if (wrongGuesses2.size() <= 9 ){
             if (!guessed2.contains(guess)) {
-                if (word2.indexOf(guess) > 0) {
+                if (word2.indexOf(guess) >= 0) {
                     System.out.println(guess + " is in the word");
                     count2++;
                     guessed2.add(guess);
                 } else {
                     System.out.println(guess + " is not in the word :(");
                     wrongGuesses2.add(guess);
-                    count2++;
                     guessed2.add(guess);
                 }
             } else {
@@ -88,6 +106,22 @@ public class MultiPlayerRound {
         } else {
             System.out.println("The word was " + word2 + ". It took Player2 " + guessed2.size()
                 + " guesses. These are the letters you guessed: " + guessed2);
+        }
+        
+        System.out.println("count1 so far " + count1 + "setSize2 " + word1Set.size());
+        System.out.println("count2 so far " + count2 + "setSize2 " + word2Set.size());
+       
+        if (wrongGuesses2.size() == 9 || count1 == word1Set.size()) {
+            player2Win = true;
+            player1Win = false;
+            System.out.println("player 1 won");
+            
+        }
+        
+        if (wrongGuesses2.size() == 9 || count2 == word2Set.size()) {
+            player2Win = true;
+            player1Win = false;
+            System.out.println("player 2 won");
         }
     }
     
@@ -180,6 +214,14 @@ public class MultiPlayerRound {
 
     public int getNumWrongGuesses2() {
         return wrongGuesses2.size();
+    }
+    
+    public boolean player1Win() {
+        return player1Win;
+    }
+    
+    public boolean player2Win() {
+        return player2Win;
     }
 
     /**

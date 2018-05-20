@@ -164,10 +164,11 @@ public class MultiPlayerPanel extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 3;
         c.gridy = 3;
-        skipButton1 = new JButton("Skip");
+        skipButton1 = new JButton("Skip/Next Round");
         skipButton1.addActionListener(new ButtonListener());
         panel.add(skipButton1, c);
         panel.add(currentPlayerLabel);
+
         return panel;
                
     }
@@ -256,11 +257,13 @@ public class MultiPlayerPanel extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 3;
         c.gridy = 3;
-        skipButton2 = new JButton("Skip");
+        skipButton2 = new JButton("Skip/Next Round");
         skipButton2.addActionListener(new ButtonListener());
         panel.add(skipButton2, c);
 
         panel.add(currentPlayerLabel);
+        
+
         return panel;
     }
 
@@ -273,15 +276,20 @@ public class MultiPlayerPanel extends JPanel {
                 else {
                     hintLabel2.setText(newRound.getHint2());
                 }
-            } else if (event.getSource() == skipButton1 || event.getSource() == skipButton2) {
+            } 
+            
+            else if (event.getSource() == skipButton1 || event.getSource() == skipButton2) {
                 if (event.getSource() == skipButton1) {
                     cardLayout.next(cardPanel);
                 
                 }
                 else {
                     cardLayout.previous(cardPanel);
-                }                
-            } else {
+                }   
+            }
+
+            
+             else {
          
                 newRound = new MultiPlayerRound(word1, word2);
 
@@ -359,6 +367,7 @@ public class MultiPlayerPanel extends JPanel {
                 fillBlanks(guessedChar1);
                 setImage();
                 
+                
             }
             else if (e.getSource() == guessField2) {
                 String input = guessField2.getText();
@@ -376,9 +385,32 @@ public class MultiPlayerPanel extends JPanel {
                 fillBlanks(guessedChar2);
                 setImage();
             }
-                        
+              
+                    
+            if (newRound.player1Win()) {
+                JLabel statusLabel = new JLabel("Player 1 Won!", JLabel.CENTER);
+                JLabel statusLabel2 = new JLabel("The correct word for player 1 is " + word1, JLabel.CENTER);
+                JLabel statusLabel3 = new JLabel("The correct word for player 2 is " + word2, JLabel.CENTER);
+                add(statusLabel);
+                add(statusLabel2);
+                add(statusLabel3);
+                
+                JButton startover = new JButton("Start over");
+                
+            }
+            else if (newRound.player2Win()) {
+                JLabel statusLabel = new JLabel("Player 2 Won!", JLabel.CENTER);
+                JLabel statusLabel2 = new JLabel("The correct word for player 1 is " + word1, JLabel.CENTER);
+                JLabel statusLabel3 = new JLabel("The correct word for player 2 is " + word2, JLabel.CENTER);
+                add(statusLabel);
+                add(statusLabel2);
+                add(statusLabel3);
+                
+                JButton startover = new JButton("Start over");
+            }
 
         }
+
 
         private void fillBlanks(char guessedChar) {
             Vector<Integer> whereToFill1 = newRound.letterFit1(guessedChar);
