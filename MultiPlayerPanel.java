@@ -16,13 +16,13 @@ import java.util.LinkedList;
 public class MultiPlayerPanel extends JPanel {
     private JButton[] buttons;
     private CardLayout cardLayout = new CardLayout();
-    private JPanel cardPanel,cardPanel2, enterLetterPanel,gamePlayPanel1, gamePlayPanel2, enterWordPanel1, enterWordPanel2;
+    private JPanel cardPanel,cardPanel2, enterLetterPanel,gamePlayPanel1, gamePlayPanel2, enterWordPanel1, enterWordPanel2, resultPanel;
     private JLabel guessLabel1, guessLabel2, wrongGuesses1, hintLabel1, hintLabel2, imageLabel1, imageLabel2;
     private JTextField guessField1, guessField2;
     private JTextField guessWord1;
-     private JTextField guessWord2;
+    private JTextField guessWord2;
     private JTextField[] letters1,letters2;
-    private JButton hintButton1, skipButton1, hintButton2, skipButton2;
+    private JButton hintButton1, skipButton1, hintButton2, skipButton2, result;
     private MultiPlayerRound newRound;
     private JLabel[] wrongGuessLabels1, wrongGuessLabels2;
     String word1, word2;
@@ -41,6 +41,8 @@ public class MultiPlayerPanel extends JPanel {
         cardPanel.add(enterWordPanel1, "1");
         
         cardPanel.add(enterWordPanel2, "2");
+        
+        
                 
         add(cardPanel);
       
@@ -266,7 +268,25 @@ public class MultiPlayerPanel extends JPanel {
 
         return panel;
     }
-
+    private JPanel makeResultPanel() {
+        JPanel panel = new JPanel();
+        if (newRound.player1Win()) {            
+            JLabel winner = new JLabel("Player 1 won", JLabel.CENTER);
+            panel.add(winner);
+        }
+        
+        else if (newRound.player2Win()) {
+            JLabel winner = new JLabel("Player 2 won", JLabel.CENTER);
+            panel.add(winner);
+        }
+        
+        JLabel result = new JLabel("The correct word for player 1 is " + word1 + "\nThe correct word for player 2 is "  + word2, JLabel.SOUTH);
+        
+        panel.add(result);
+ 
+        return panel;
+    }
+        
     private class ButtonListener implements ActionListener {
         public void actionPerformed (ActionEvent event) {
             if (event.getSource() == hintButton1 || event.getSource() == hintButton2) {
@@ -288,6 +308,10 @@ public class MultiPlayerPanel extends JPanel {
                 }   
             }
 
+            else if (event.getSource() == result) {
+                cardLayout.last(cardPanel);            
+            
+            }
             
              else {
          
@@ -388,25 +412,23 @@ public class MultiPlayerPanel extends JPanel {
               
                     
             if (newRound.player1Win()) {
-                JLabel statusLabel = new JLabel("Player 1 Won!", JLabel.CENTER);
-                JLabel statusLabel2 = new JLabel("The correct word for player 1 is " + word1, JLabel.CENTER);
-                JLabel statusLabel3 = new JLabel("The correct word for player 2 is " + word2, JLabel.CENTER);
+                JLabel statusLabel = new JLabel("Player 1 won! ", JLabel.CENTER);
                 add(statusLabel);
-                add(statusLabel2);
-                add(statusLabel3);
                 
-                JButton startover = new JButton("Start over");
+                result = new JButton("Reveal Results");
+                add(result);
+                resultPanel = makeResultPanel();
+                cardPanel.add(resultPanel, "5");
                 
             }
             else if (newRound.player2Win()) {
                 JLabel statusLabel = new JLabel("Player 2 Won!", JLabel.CENTER);
-                JLabel statusLabel2 = new JLabel("The correct word for player 1 is " + word1, JLabel.CENTER);
-                JLabel statusLabel3 = new JLabel("The correct word for player 2 is " + word2, JLabel.CENTER);
-                add(statusLabel);
-                add(statusLabel2);
-                add(statusLabel3);
+                add(statusLabel);;
                 
-                JButton startover = new JButton("Start over");
+                result = new JButton("Reveal Results");             
+                add(result);
+                resultPanel = makeResultPanel();
+                cardPanel.add(resultPanel, "5");
             }
 
         }

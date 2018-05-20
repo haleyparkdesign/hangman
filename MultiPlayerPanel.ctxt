@@ -11,4 +11,6 @@ comment4.params=
 comment4.target=javax.swing.JPanel\ makeMultiPlayerGamePanel1()
 comment5.params=
 comment5.target=javax.swing.JPanel\ makeMultiPlayerGamePanel2()
-numComments=6
+comment6.params=
+comment6.target=javax.swing.JPanel\ makeResultPanel()
+numComments=7

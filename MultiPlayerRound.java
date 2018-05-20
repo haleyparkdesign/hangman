@@ -17,8 +17,8 @@ public class MultiPlayerRound {
     String word1;
     String word2;
     int currentPlayer;
-    int count1;
-    int count2;
+    static int count1 =0 ;
+    static int count2 = 0;
 
     /**
      * Constructor for objects of class SinglePlayerRound
@@ -35,8 +35,7 @@ public class MultiPlayerRound {
         guessed2 = new LinkedList();
         wrongGuesses1 = new LinkedList();
         wrongGuesses2 = new LinkedList();
-        count1 = 0;
-        count2 = 0;
+
 
         for (int i = 0; i < word1.length(); i++) {
             word1Set.add(word1.charAt(i));
