@@ -56,7 +56,7 @@ public class MultiPlayerPanel extends JPanel {
 
         panel.setLayout(new GridLayout(5, 3, 10, 10));
 
-        JLabel statusLabel = new JLabel("Player 1's turn to enter the word", JLabel.CENTER);
+        JLabel statusLabel = new JLabel("Player 1's turn to enter the word. Please only enter lowercase letters", JLabel.CENTER);
         guessWord1 = new JTextField();
         guessWord1.addActionListener(new TextFieldListener());
         panel.add(statusLabel);   
@@ -70,7 +70,7 @@ public class MultiPlayerPanel extends JPanel {
 
         panel.setLayout(new GridLayout(5, 3, 10, 10));
 
-        JLabel statusLabel = new JLabel("Player 2's turn to enter the word", JLabel.CENTER);
+        JLabel statusLabel = new JLabel("Player 2's turn to enter the word. Please only enter lowercase letters", JLabel.CENTER);
         guessWord2 = new JTextField();
         guessWord2.addActionListener(new TextFieldListener());
         panel.add(statusLabel);
