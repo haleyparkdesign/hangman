@@ -22,7 +22,7 @@ public class MultiPlayerPanel extends JPanel {
     private JTextField guessWord1;
     private JTextField guessWord2;
     private JTextField[] letters1,letters2;
-    private JButton hintButton1, skipButton1, hintButton2, skipButton2, result1, result2;
+    private JButton hintButton1, skipButton1, hintButton2, skipButton2, result1, result2, startover;
     private MultiPlayerRound newRound;
     private JLabel[] wrongGuessLabels1, wrongGuessLabels2;
     String word1, word2;
@@ -282,8 +282,11 @@ public class MultiPlayerPanel extends JPanel {
         
         JLabel resultLabel = new JLabel("The correct word for player 1 is " + word1 + " . The correct word for player 2 is "  + word2, JLabel.CENTER);
         
+        startover = new JButton("Start Over");
+        startover.addActionListener(new ButtonListener());
         panel.add(resultLabel);
         
+        panel.add(startover);
  
         return panel;
     }
@@ -315,36 +318,33 @@ public class MultiPlayerPanel extends JPanel {
             }
             
              else {
-         
-                newRound = new MultiPlayerRound(word1, word2);
+                
+                resetGame();
 
-                gamePlayPanel1 = makeMultiPlayerGamePanel1();
-                gamePlayPanel2 = makeMultiPlayerGamePanel2();
-    
-                cardPanel.add(gamePlayPanel1, "3");
-                cardPanel.add(gamePlayPanel2, "4");
-          
-
-                //hide the categories panel, show game panel
-                cardLayout.last(cardPanel);
+  
             }
         }
 
         private void resetGame() {
             cardPanel.removeAll();
   
-            gamePlayPanel1 = makeMultiPlayerGamePanel1();
-            gamePlayPanel2 = makeMultiPlayerGamePanel2();
- 
+            wrongGuessLabels1 = new JLabel[9];
+            wrongGuessLabels2 = new JLabel[9];
+            
+            enterWordPanel1 = makeEnterWordPanel1();
+            enterWordPanel2 = makeEnterWordPanel2();
+            //gamePlayPanel = makeMultiPlayerGamePanel();
+            
             cardPanel = new JPanel();
             cardPanel.setLayout(cardLayout);
-
-            cardPanel.add(gamePlayPanel1, "3");
-            cardPanel.add(gamePlayPanel2, "4");
-
-
+            cardPanel.add(enterWordPanel1, "1");
+            
+            cardPanel.add(enterWordPanel2, "2");
+            
+            
+                    
             add(cardPanel);
-
+          
             // initialize with showing the categories panel
             cardLayout.first(cardPanel);
         }
