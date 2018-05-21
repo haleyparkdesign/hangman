@@ -2,8 +2,8 @@ import java.util.*;
 import java.io.*;
 
 /**
- * @author (your name)
- * @version (a version number or a date)
+ * @author Denise Chai, Margaret Harrigan
+ * @version 20 May 2018
  */
 public class MultiPlayerRound {
     private Vector<String> dictionary;
@@ -11,14 +11,12 @@ public class MultiPlayerRound {
     private boolean player2Win;
     private HashSet word1Set;
     private HashSet word2Set;
-    private LinkedList guessed1, guessed2, wrongGuesses1, wrongGuesses2;
-    int user1Points;
-    int user2Points;
+    public LinkedList guessed1, guessed2, wrongGuesses1, wrongGuesses2;
     String word1;
     String word2;
     int currentPlayer;
-    static int count1 =0 ;
-    static int count2 = 0;
+    private int count1 =0 ;
+    private int count2 = 0;
     private boolean hint1, hint2;
 
     /**
@@ -34,23 +32,26 @@ public class MultiPlayerRound {
         word2Set = new HashSet();
         guessed1 = new LinkedList();
         guessed2 = new LinkedList();
-        wrongGuesses1 = new LinkedList();
-        wrongGuesses2 = new LinkedList();
+        wrongGuesses1 = new <Character> LinkedList();
+        wrongGuesses2 = new <Character> LinkedList();
         hint1 = false;
         hint2 = false;
 
-
+        //creates hashSet() based on word1
         for (int i = 0; i < word1.length(); i++) {
             word1Set.add(word1.charAt(i));
         }
         
+        //creates hashSet() based on word2
         for (int i = 0; i < word2.length(); i++) {
             word2Set.add(word2.charAt(i));
-        }
-
-        
+        }       
     }
 
+    /**
+     * Allows user 1 to make a guess
+     * @Parameter     guess     the character the user 1 is guessing and inputting into the textfield
+     */
     public void makeGuess1(char guess) {
         if (!player1Win && !player2Win ){
             if (!guessed1.contains(guess)) {
@@ -73,23 +74,23 @@ public class MultiPlayerRound {
                 + " guesses. These are the letters you guessed: " + guessed1);
         }
         
-        System.out.println("count1 so far " + count1 + "setSize2 " + word1Set.size());
-        System.out.println("count2 so far " + count2 + "setSize2 " + word2Set.size());
-       
-        if (wrongGuesses2.size() == 9 || count1 == word1Set.size()) {
+        if (wrongGuesses2.size() == 2 || count1 == word1Set.size()) {
             player1Win = true;
             player2Win = false;
-            System.out.println("player 1 won");
-            
+            System.out.println("player 1 won");            
         }
 
-        if (wrongGuesses2.size() == 9 || count2 == word2Set.size()) {
-            player1Win = true;
-            player2Win = false;
-            System.out.println("player 2 won");
+        if (wrongGuesses1.size() == 9 || count2 == word2Set.size()) {
+            player1Win = false;
+            player2Win = true;
+            System.out.println("player 2 won");           
         }
     }
-    
+
+    /**
+     * Allows user 2 to make a guess
+     * @Parameter     guess     the character user 2 is guessing and inputting into the textfield
+     */
     public void makeGuess2(char guess) {
         if (wrongGuesses2.size() <= 9 ){
             if (!guessed2.contains(guess)) {
@@ -109,25 +110,23 @@ public class MultiPlayerRound {
             System.out.println("The word was " + word2 + ". It took Player2 " + guessed2.size()
                 + " guesses. These are the letters you guessed: " + guessed2);
         }
-        
-        System.out.println("count1 so far " + count1 + "setSize2 " + word1Set.size());
-        System.out.println("count2 so far " + count2 + "setSize2 " + word2Set.size());
        
         if (wrongGuesses2.size() == 9 || count1 == word1Set.size()) {
-            player2Win = true;
-            player1Win = false;
-            System.out.println("player 1 won");
-            
+            player2Win = false;
+            player1Win = true;
+            System.out.println("player 1 won");           
         }
         
-        if (wrongGuesses2.size() == 9 || count2 == word2Set.size()) {
+        if (wrongGuesses1.size() == 9 || count2 == word2Set.size()) {
             player2Win = true;
             player1Win = false;
-            System.out.println("player 2 won");
+            System.out.println("player 2 won");         
         }
     }
-    
 
+    /**
+     * Provides a limti of 1 hint for the first user
+     */
     public String getHint1() {
         if (!hint1){
             String hintChar = "";
@@ -143,40 +142,17 @@ public class MultiPlayerRound {
                         break;
                     } 
                 }
-            }
-   
+            }   
             return "Contains letter " + hintChar;
         }
         else{
             return "No more hints";
         }
     }
-
-    public Vector<Integer> letterFit1(char guess) {
-        Vector<Integer> correctLetterPos = new Vector<Integer>();
-        char[] charArray = word1.toCharArray();
-        
-        for (int i = 0; i < charArray.length; i++) {
-            if (charArray[i] == guess)
-                correctLetterPos.add(i);
-        }
-        
-        return correctLetterPos;
-    }
     
-    
-    public Vector<Integer> letterFit2(char guess) {
-        Vector<Integer> correctLetterPos = new Vector<Integer>();
-        char[] charArray = word2.toCharArray();
-        
-        for (int i = 0; i < charArray.length; i++) {
-            if (charArray[i] == guess)
-                correctLetterPos.add(i);
-        }
-        
-        return correctLetterPos;
-    }
-    
+    /**
+     * Provides a limti of 1 hint for the second user
+     */    
     public String getHint2() {
         if (!hint2){
             String hintChar = "";
@@ -192,58 +168,95 @@ public class MultiPlayerRound {
                         break;
                     } 
                 }
-            }
-    
+            }   
             return "Contains letter " + hintChar;
         }
         else{
             return "No more hints";
         }
     }
-    public String getWord1() {
-        return this.word1;
+    
+    /**
+     * Places the character guess into the next empty blank grid in the game interface for the first user
+     * @Param     guess    the new correct letter guessed by the first user that will appear in the correct
+     *                     positions in the blank grid
+     * @Return             a vector of integers that provide the index for the correct position of the guessed
+     *                     character that will appear in the blank grid 
+     */
+    public Vector<Integer> letterFit1(char guess) {
+        Vector<Integer> correctLetterPos = new Vector<Integer>();
+        char[] charArray = word1.toCharArray();        
+        for (int i = 0; i < charArray.length; i++) {
+            if (charArray[i] == guess)
+                correctLetterPos.add(i);
+        }       
+        return correctLetterPos;
+    }
+
+    /**
+     * Places the character guess into the next empty blank grid in the game interface for the second user
+     * @Param    guess     the new correct letter guessed by the second user that will appear in the correct
+     *                     positions in the blank grid
+     * @Return             a vector of integers that provide the index for the correct position of the guessed
+     *                     character that will appear in the blank grid 
+     */  
+    public Vector<Integer> letterFit2(char guess) {
+        Vector<Integer> correctLetterPos = new Vector<Integer>();
+        char[] charArray = word2.toCharArray();
+        
+        for (int i = 0; i < charArray.length; i++) {
+            if (charArray[i] == guess)
+                correctLetterPos.add(i);
+        }        
+        return correctLetterPos;
     }
     
-    public String getWord2() {
-        return this.word2;
-    }
     
-    public String getWrongGuesses1String() {
-        return wrongGuesses1.toString();
-    }
-   
-    public String getWrongGuesses2String() {
-        return wrongGuesses2.toString();
-    }
-    
+    /**
+     * provides the LinkedList that contains all the wrong character guessed by the first user
+     * @return     the LinkedList that contains all the wrong characters guessed by the first user
+     */
     public LinkedList<Character> getWrongGuesses1() {
         return wrongGuesses1;
     }
-   
+
+    /**
+     * provides the LinkedList that contains all the wrong character guessed by the second user
+     * @return     the LinkedList that contains all the wrong characters guessed by the second user
+     */
     public LinkedList<Character> getWrongGuesses2() {
         return wrongGuesses2;
     }
 
+    /**
+     * provides the LinkedList that contains all the wrong character guessed by the first user
+     * @return     the integer that represents the numeber of wrong characters guessed by the first user
+     */
     public int getNumWrongGuesses1() {
         return wrongGuesses1.size();
     }
 
+    /**
+     * provides the LinkedList that contains all the wrong character guessed by the second user
+     * @return     the integer that represents the numeber of wrong characters guessed by the second user
+     */    
     public int getNumWrongGuesses2() {
         return wrongGuesses2.size();
     }
-    
+
+    /**
+     * provides the boolean that indicates whether or not the first user has won
+     * @return     the boolean that indicates whether the first player has won or not
+     */   
     public boolean player1Win() {
         return player1Win;
     }
-    
-    public boolean player2Win() {
-        return player2Win;
-    }
 
     /**
-     * Tests the class
-     */
-    public static void main(String[] args) {
-        //needs to be filled 
+     * provides the boolean that indicates whether or not the second user has won
+     * @return     the boolean that indicates whether the second player has won or not
+     */ 
+    public boolean player2Win() {
+        return player2Win;
     }
 }
