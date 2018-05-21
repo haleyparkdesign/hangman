@@ -27,7 +27,10 @@ public class MultiPlayerPanel extends JPanel {
     String word1, word2;
     int count = 0;
 
-    //initialize elements of MultiPlayerPanel
+    //-----------------------------------------------------------------
+    //  Sets up the labels and the first two pages, which prompts
+    //  two users to each provide a word for the other user to guess
+    //-----------------------------------------------------------------
     public MultiPlayerPanel() {
         
         wrongGuessLabels1 = new JLabel[9];
@@ -49,7 +52,9 @@ public class MultiPlayerPanel extends JPanel {
        
     }
     
-    //panel for user 1 to enter the word for user 2 to guess
+    /**
+     * Creates the panel that allows the first user to enter the word for the second user to guess
+     */
     private JPanel makeEnterWordPanel1() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 3, 10, 10));
@@ -61,7 +66,9 @@ public class MultiPlayerPanel extends JPanel {
         return panel;
     }
     
-    //panel for user 2 to enter the word for user 1 to guess
+    /**
+     * Creates the panel that allows the second user to enter the word for the first user to guess
+     */
     private JPanel makeEnterWordPanel2() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 3, 10, 10));
@@ -73,7 +80,9 @@ public class MultiPlayerPanel extends JPanel {
         return panel;
     }
     
-    //the page for player 1 to enter guessed letters
+    /**
+     * Creates the panel that allows the first user to input guessed letters and skip to the second user's turn
+     */
     private JPanel makeMultiPlayerGamePanel1() {
         JPanel panel = new JPanel();
         JLabel currentPlayerLabel = new JLabel("Player 1's turn", JLabel.CENTER);
@@ -167,7 +176,9 @@ public class MultiPlayerPanel extends JPanel {
                
     }
     
-    //the page for player 2 to enter guessed letters
+    /**
+     * Creates the panel that allows the second user to input guessed letters and skip to the first user's turn
+     */
     private JPanel makeMultiPlayerGamePanel2() {
         JPanel panel = new JPanel();
         JLabel currentPlayerLabel = new JLabel("Player 2's turn", JLabel.CENTER);
@@ -261,7 +272,10 @@ public class MultiPlayerPanel extends JPanel {
         return panel;
     }
     
-    //this panel show results of the game when the game is over
+    /**
+     * Creates the panel that displays the results of the game. It gives information on the winner of the game as well as the correct words 
+     * for each user's game
+     */
     private JPanel makeResultPanel() {
         JPanel panel = new JPanel();
         if (newRound.player1Win()) {            
@@ -285,9 +299,9 @@ public class MultiPlayerPanel extends JPanel {
         return panel;
     }
     
-    /**
-     * 
-     */    
+    //*****************************************************************
+    //  Represents the listener for all the buttons
+    //***************************************************************** 
     private class ButtonListener implements ActionListener {
         public void actionPerformed (ActionEvent event) {
             if (event.getSource() == hintButton1 || event.getSource() == hintButton2) {
@@ -317,7 +331,9 @@ public class MultiPlayerPanel extends JPanel {
             }
         }
 
-        //reset all the variables and initialize a new game
+        /**
+         * Resets all the variables of the panel and the game and starts a new game.
+         */
         private void resetGame() {
             //reset variables;
             cardPanel.removeAll();
@@ -368,6 +384,9 @@ public class MultiPlayerPanel extends JPanel {
         }
     }
 
+    //*****************************************************************
+    //  Represents the listener for all the text fields
+    //*****************************************************************
     private class TextFieldListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             count ++;
@@ -467,7 +486,10 @@ public class MultiPlayerPanel extends JPanel {
 
         }
 
-
+        /**
+         * Fills in the correct letters guessed for each game. 
+         * @Param    guessedChar   character that is gussed correctly and will be shown in the previously blank grid  
+         */
         private void fillBlanks(char guessedChar) {
             Vector<Integer> whereToFill1 = newRound.letterFit1(guessedChar);
             for (int i = 0; i < whereToFill1.size(); i++) {
@@ -478,7 +500,10 @@ public class MultiPlayerPanel extends JPanel {
                 letters2[whereToFill2.get(i)].setText("" + Character.toUpperCase(guessedChar));
             }
         }
-
+        
+        /**
+         * Updates the hangman image after each round of the game
+         */
         private void setImage() {
             int numWrongGuesses1 = newRound.getNumWrongGuesses1();
             int numWrongGuesses2 = newRound.getNumWrongGuesses2();
