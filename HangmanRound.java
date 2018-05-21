@@ -51,7 +51,18 @@ public class HangmanRound
                 if (word.contains(guess)){
                     System.out.println(guess + " is in the word");
                     count++;
-                    guessed.add(guess);
+                    //guessed.add(guess);
+                    if (guessed.isEmpty() || guess > (char) guessed.getLast()) {
+                        guessed.add(guess);
+                    }
+                    else{
+                        for (int i = 0; i < guessed.size(); i++){
+                            if (guess < (char) guessed.get(i)){
+                                guessed.add(i, guess);
+                                break;
+                            }
+                        }
+                    }
                 }
                 else{
                     System.out.println(guess + " is not in the word :(");

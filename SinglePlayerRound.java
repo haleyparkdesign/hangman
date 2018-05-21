@@ -15,7 +15,7 @@ public class SinglePlayerRound {
     private LinkedList guessed, wrongGuesses;
     final int numBodyParts = 9;
     private int count;
-    boolean won, lost;
+    boolean won, lost, hint;
 
     /**
      * Constructor for objects of class SinglePlayerRound
@@ -27,6 +27,7 @@ public class SinglePlayerRound {
         guessed = new LinkedList();
         wrongGuesses = new LinkedList();
         count = 0;
+        hint = false;
 
         try {
             Scanner sc = new Scanner(new File(categoryFileName));
@@ -37,8 +38,8 @@ public class SinglePlayerRound {
                 dictionary.add(word);
             }
 
-            randomIndex = (int)(Math.round(Math.random() * dictionary.size()));
-
+            randomIndex = (int)(Math.floor(Math.random() * dictionary.size()));
+            //System.out.println(randomIndex);
             //randomly chooses a word from the category
             original = dictionary.get(randomIndex);
             for (char c : original.toCharArray()){
@@ -60,7 +61,17 @@ public class SinglePlayerRound {
                     guessed.add(guess);
                 } else {
                     System.out.println(guess + " is not in the word :(");
-                    wrongGuesses.add(guess);
+                    if (wrongGuesses.isEmpty() || guess > (char) wrongGuesses.getLast()) {
+                        wrongGuesses.add(guess);
+                    }
+                    else{
+                        for (int i = 0; i < wrongGuesses.size(); i++){
+                            if (guess < (char) wrongGuesses.get(i)){
+                                wrongGuesses.add(i, guess);
+                                break;
+                            }
+                        }
+                    }
                     guessed.add(guess);
                 }
             } else {
@@ -68,7 +79,8 @@ public class SinglePlayerRound {
             }
         } else {
             System.out.println("The word was " + original + ". It took you " + guessed.size()
-                + " guesses. These are the letters you guessed: " + guessed);
+                + " guesses. These are the letters you guessed: " + guessed
+                + "These are the letters you guessed that were not in the word: " + wrongGuesses);
         }
     }
     
@@ -91,7 +103,7 @@ public class SinglePlayerRound {
     }
     
     public boolean didPlayerWin() {
-        if (wrongGuesses.size() > numBodyParts) 
+        if (wrongGuesses.size() >= numBodyParts) 
             lost = true;
         return lost;
     }
