@@ -1,7 +1,7 @@
 
 /**
  * HangmanRound is the backend code for one round of hangman. It only interacts with
- * the user in the consule. There is not limit to the number of guesses the user gets.
+ * the user in the console. There is not limit to the number of guesses the user gets.
  * This is preliminary code that will be added upon as the GUI gets built.
  *
  * @author Margaret Harrigan

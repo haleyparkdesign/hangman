@@ -1,7 +1,7 @@
 
 /**
  * Hangman is preliminary code that will be added upon as the GUI gets built.
- * It only interacts with the user in the consule. Only has a working multiplayer
+ * It only interacts with the user in the console. Only has a working multiplayer
  * game.
  *
  * @author Margaret Harrigan

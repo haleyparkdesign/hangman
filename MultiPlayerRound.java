@@ -125,7 +125,7 @@ public class MultiPlayerRound {
     }
 
     /**
-     * Provides a limti of 1 hint for the first user
+     * Provides a limit of 1 hint for the first user
      */
     public String getHint1() {
         if (!hint1){
