@@ -19,13 +19,14 @@ public class MultiPlayerRound {
     int currentPlayer;
     static int count1 =0 ;
     static int count2 = 0;
+    private boolean hint1, hint2;
 
     /**
      * Constructor for objects of class SinglePlayerRound
      */
-    public MultiPlayerRound (String word1, String word2) {
-        this.word1 = word1;
-        this.word2 = word2;
+    public MultiPlayerRound (String w1, String w2) {
+        this.word1 = w1;
+        this.word2 = w2;
         int randomIndex;
         currentPlayer = 0;
         dictionary = new Vector<String>();
@@ -35,6 +36,8 @@ public class MultiPlayerRound {
         guessed2 = new LinkedList();
         wrongGuesses1 = new LinkedList();
         wrongGuesses2 = new LinkedList();
+        hint1 = false;
+        hint2 = false;
 
 
         for (int i = 0; i < word1.length(); i++) {
@@ -126,20 +129,27 @@ public class MultiPlayerRound {
     
 
     public String getHint1() {
-        String hintChar = "";
-        if (!guessed1.contains(word1.charAt(0))) {
-            hintChar = word1.substring(0,1);
-            return "Starts with: " + hintChar;
-        } else {
-            for (int i = 1; i < word1.length(); i++) {
-                if (!guessed1.contains(word1.charAt(i))) {
-                    hintChar = word1.substring(i,i+1);
-                    break;
-                } 
+        if (!hint1){
+            String hintChar = "";
+            if (!guessed1.contains(word1.charAt(0))) {
+                hintChar = word1.substring(0,1);
+                hint1 = true;
+                return "Starts with: " + hintChar;
+            } else {
+                for (int i = 1; i < word1.length(); i++) {
+                    if (!guessed1.contains(word1.charAt(i))) {
+                        hintChar = word1.substring(i,i+1);
+                        hint1 = true;
+                        break;
+                    } 
+                }
             }
+   
+            return "Contains letter " + hintChar;
         }
-
-        return "Contains letter " + hintChar;
+        else{
+            return "No more hints";
+        }
     }
 
     public Vector<Integer> letterFit1(char guess) {
@@ -168,20 +178,27 @@ public class MultiPlayerRound {
     }
     
     public String getHint2() {
-        String hintChar = "";
-        if (!guessed2.contains(word2.charAt(0))) {
-            hintChar = word2.substring(0,1);
-            return "Starts with: " + hintChar;
-        } else {
-            for (int i = 1; i < word2.length(); i++) {
-                if (!guessed2.contains(word1.charAt(i))) {
-                    hintChar = word2.substring(i,i+1);
-                    break;
-                } 
+        if (!hint2){
+            String hintChar = "";
+            if (!guessed2.contains(word2.charAt(0))) {
+                hintChar = word2.substring(0,1);
+                hint2 = true;
+                return "Starts with: " + hintChar;
+            } else {
+                for (int i = 1; i < word2.length(); i++) {
+                    if (!guessed2.contains(word1.charAt(i))) {
+                        hintChar = word2.substring(i,i+1);
+                        hint2 = true;
+                        break;
+                    } 
+                }
             }
+    
+            return "Contains letter " + hintChar;
         }
-
-        return "Contains letter " + hintChar;
+        else{
+            return "No more hints";
+        }
     }
     public String getWord1() {
         return this.word1;
