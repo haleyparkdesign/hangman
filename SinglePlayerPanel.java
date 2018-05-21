@@ -19,7 +19,7 @@ public class SinglePlayerPanel extends JPanel {
     private String categoryName;
     private CardLayout cardLayout = new CardLayout();
     private JPanel cardPanel, chooseCategoryPanel,gamePlayPanel;
-    private JLabel guessLabel, wrongGuesses, hintLabel, categoryLabel, imageLabel;
+    private JLabel guessLabel, wrongGuesses, hintLabel, categoryLabel, imageLabel, result;
     private JTextField guessField;
     private JTextField[] letters;
     private JButton hintButton, skipButton;
@@ -131,11 +131,14 @@ public class SinglePlayerPanel extends JPanel {
         }
         lettersArea.add(wrongGuessesArea, BorderLayout.SOUTH);
 
+        result = new JLabel("");
+        lettersArea.add(result);
+        
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 1;
         panel.add(lettersArea, c);
-
+        
         // Add buttons
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
@@ -221,8 +224,16 @@ public class SinglePlayerPanel extends JPanel {
             String input = guessField.getText();
             System.out.println("Input: " + input);
             guessedChar = input.charAt(0);
-
+            
             newRound.makeGuess(guessedChar);
+            
+            if(newRound.didPlayerWin()){
+                result.setText("You Won!");
+            }
+            else if(newRound.didPlayerLose()){
+                result.setText("You lost. The word was " + newRound.getOriginal());
+            }
+            
             guessField.setText("");
 
             for (int i = 0; i < wrongGuesses.size(); i++) {

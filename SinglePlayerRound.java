@@ -53,34 +53,35 @@ public class SinglePlayerRound {
     }
 
     public void makeGuess(char guess) {
-        if (count < word.size()){
-            if (!guessed.contains(guess)) {
-                if (word.contains(guess)) {
+        if (!guessed.contains(guess)) {
+            if (word.contains(guess)) {
                     System.out.println(guess + " is in the word");
                     count++;
                     guessed.add(guess);
-                } else {
+            } else {
                     System.out.println(guess + " is not in the word :(");
-                    if (wrongGuesses.isEmpty() || guess > (char) wrongGuesses.getLast()) {
+                if (wrongGuesses.isEmpty() || guess > (char) wrongGuesses.getLast()) {
                         wrongGuesses.add(guess);
                     }
-                    else{
-                        for (int i = 0; i < wrongGuesses.size(); i++){
-                            if (guess < (char) wrongGuesses.get(i)){
+                else{
+                    for (int i = 0; i < wrongGuesses.size(); i++){
+                        if (guess < (char) wrongGuesses.get(i)){
                                 wrongGuesses.add(i, guess);
                                 break;
-                            }
                         }
                     }
-                    guessed.add(guess);
                 }
-            } else {
-                System.out.println("You've already guessed this letter. Try again.");
+                guessed.add(guess);
             }
         } else {
-            System.out.println("The word was " + original + ". It took you " + guessed.size()
-                + " guesses. These are the letters you guessed: " + guessed
-                + "These are the letters you guessed that were not in the word: " + wrongGuesses);
+                System.out.println("You've already guessed this letter. Try again.");
+        }
+        
+        if (wrongGuesses.size() == numBodyParts) {
+            lost = true;
+        }
+        else if(count == word.size()){
+            won = true;
         }
     }
     
@@ -97,20 +98,15 @@ public class SinglePlayerRound {
     }
     
     public boolean didPlayerLose() {
-        if (wrongGuesses.size() > numBodyParts) 
-            lost = true;
         return lost;
     }
     
     public boolean didPlayerWin() {
-        if (wrongGuesses.size() >= numBodyParts) 
-            lost = true;
-        return lost;
+        return won;
     }
     
     public boolean isGameEnd() {
-        if (won || lost) return true;
-        else return false;
+        return wrongGuesses.size() >= numBodyParts;
     }
 
     public String getHint() {
@@ -124,7 +120,6 @@ public class SinglePlayerRound {
                 for (int i = 1; i < original.length(); i++) {
                     if (!guessed.contains(original.charAt(i))) {
                         hintChar = original.substring(i,i+1);
-                        hint = true;
                         break;
                     } 
                 }
@@ -144,6 +139,10 @@ public class SinglePlayerRound {
         return wrongGuesses.size();
     }
     
+    public int getNumBodyParts(){
+        return numBodyParts;
+    }
+     
     public String getOriginal() {
         return this.original;
     }
