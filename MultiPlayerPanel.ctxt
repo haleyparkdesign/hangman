@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=MultiPlayerPanel
-comment0.text=\n\ GUI\ elements\ for\ single\ player\ option\n\n\ @author\ Denise\ Chai,\ Haley\ Park\n\ @version\ May\ 15,\ 2018\n
+comment0.text=\n\ GUI\ elements\ for\ multi\ player\ option\n\n\ @author\ Denise\ Chai,\ Haley\ Park\n\ @version\ May\ 15,\ 2018\n
 comment1.params=
 comment1.target=MultiPlayerPanel()
 comment2.params=

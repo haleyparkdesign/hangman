@@ -2,8 +2,8 @@ import java.util.*;
 import java.io.*;
 
 /**
- * @author (your name)
- * @version (a version number or a date)
+ * @author Denise Chai, Margaret Harrigan
+ * @version 20 May 2018
  */
 public class MultiPlayerRound {
     private Vector<String> dictionary;
@@ -12,13 +12,11 @@ public class MultiPlayerRound {
     private HashSet word1Set;
     private HashSet word2Set;
     public LinkedList guessed1, guessed2, wrongGuesses1, wrongGuesses2;
-    int user1Points;
-    int user2Points;
     String word1;
     String word2;
     int currentPlayer;
-    static int count1 =0 ;
-    static int count2 = 0;
+    private int count1 =0 ;
+    private int count2 = 0;
     private boolean hint1, hint2;
 
     /**
@@ -39,18 +37,20 @@ public class MultiPlayerRound {
         hint1 = false;
         hint2 = false;
 
-
+        //creates hashSet() based on word1
         for (int i = 0; i < word1.length(); i++) {
             word1Set.add(word1.charAt(i));
         }
         
+        //creates hashSet() based on word2
         for (int i = 0; i < word2.length(); i++) {
             word2Set.add(word2.charAt(i));
-        }
-
-        
+        }       
     }
 
+    /**
+     * Allows uer1 to make a guess
+     */
     public void makeGuess1(char guess) {
         if (!player1Win && !player2Win ){
             if (!guessed1.contains(guess)) {
@@ -73,23 +73,19 @@ public class MultiPlayerRound {
                 + " guesses. These are the letters you guessed: " + guessed1);
         }
         
-        System.out.println("count1 so far " + count1 + "setSize2 " + word1Set.size());
-        System.out.println("count2 so far " + count2 + "setSize2 " + word2Set.size());
-       
-        if (wrongGuesses2.size() == 9 || count1 == word1Set.size()) {
+        if (wrongGuesses2.size() == 2 || count1 == word1Set.size()) {
             player1Win = true;
             player2Win = false;
-            System.out.println("player 1 won");
-            
+            System.out.println("player 1 won");            
         }
 
-        if (wrongGuesses2.size() == 9 || count2 == word2Set.size()) {
-            player1Win = true;
-            player2Win = false;
-            System.out.println("player 2 won");
+        if (wrongGuesses1.size() == 9 || count2 == word2Set.size()) {
+            player1Win = false;
+            player2Win = true;
+            System.out.println("player 2 won");           
         }
     }
-    
+       
     public void makeGuess2(char guess) {
         if (wrongGuesses2.size() <= 9 ){
             if (!guessed2.contains(guess)) {
@@ -109,24 +105,19 @@ public class MultiPlayerRound {
             System.out.println("The word was " + word2 + ". It took Player2 " + guessed2.size()
                 + " guesses. These are the letters you guessed: " + guessed2);
         }
-        
-        System.out.println("count1 so far " + count1 + "setSize2 " + word1Set.size());
-        System.out.println("count2 so far " + count2 + "setSize2 " + word2Set.size());
        
         if (wrongGuesses2.size() == 9 || count1 == word1Set.size()) {
-            player2Win = true;
-            player1Win = false;
-            System.out.println("player 1 won");
-            
+            player2Win = false;
+            player1Win = true;
+            System.out.println("player 1 won");           
         }
         
-        if (wrongGuesses2.size() == 9 || count2 == word2Set.size()) {
+        if (wrongGuesses1.size() == 9 || count2 == word2Set.size()) {
             player2Win = true;
             player1Win = false;
-            System.out.println("player 2 won");
+            System.out.println("player 2 won");         
         }
     }
-    
 
     public String getHint1() {
         if (!hint1){
@@ -143,8 +134,7 @@ public class MultiPlayerRound {
                         break;
                     } 
                 }
-            }
-   
+            }   
             return "Contains letter " + hintChar;
         }
         else{
@@ -154,17 +144,14 @@ public class MultiPlayerRound {
 
     public Vector<Integer> letterFit1(char guess) {
         Vector<Integer> correctLetterPos = new Vector<Integer>();
-        char[] charArray = word1.toCharArray();
-        
+        char[] charArray = word1.toCharArray();        
         for (int i = 0; i < charArray.length; i++) {
             if (charArray[i] == guess)
                 correctLetterPos.add(i);
-        }
-        
+        }       
         return correctLetterPos;
     }
-    
-    
+        
     public Vector<Integer> letterFit2(char guess) {
         Vector<Integer> correctLetterPos = new Vector<Integer>();
         char[] charArray = word2.toCharArray();
@@ -172,8 +159,7 @@ public class MultiPlayerRound {
         for (int i = 0; i < charArray.length; i++) {
             if (charArray[i] == guess)
                 correctLetterPos.add(i);
-        }
-        
+        }        
         return correctLetterPos;
     }
     
@@ -192,22 +178,14 @@ public class MultiPlayerRound {
                         break;
                     } 
                 }
-            }
-    
+            }   
             return "Contains letter " + hintChar;
         }
         else{
             return "No more hints";
         }
     }
-    public String getWord1() {
-        return this.word1;
-    }
-    
-    public String getWord2() {
-        return this.word2;
-    }
-    
+
     public LinkedList<Character> getWrongGuesses1() {
         return wrongGuesses1;
     }
@@ -230,12 +208,5 @@ public class MultiPlayerRound {
     
     public boolean player2Win() {
         return player2Win;
-    }
-
-    /**
-     * Tests the class
-     */
-    public static void main(String[] args) {
-        //needs to be filled 
     }
 }
