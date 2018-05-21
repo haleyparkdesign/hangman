@@ -114,20 +114,26 @@ public class SinglePlayerRound {
     }
 
     public String getHint() {
-        String hintChar = "";
-        if (!guessed.contains(original.charAt(0))) {
-            hintChar = original.substring(0,1);
-            return "Starts with: " + hintChar;
-        } else {
-            for (int i = 1; i < original.length(); i++) {
-                if (!guessed.contains(original.charAt(i))) {
-                    hintChar = original.substring(i,i+1);
-                    break;
-                } 
+        if (!hint){
+            String hintChar = "";
+            if (!guessed.contains(original.charAt(0))) {
+                hintChar = original.substring(0,1);
+                hint = true;
+                return "Starts with: " + hintChar;
+            } else {
+                for (int i = 1; i < original.length(); i++) {
+                    if (!guessed.contains(original.charAt(i))) {
+                        hintChar = original.substring(i,i+1);
+                        hint = true;
+                        break;
+                    } 
+                }
             }
+            return "Contains letter " + hintChar;
         }
-
-        return "Contains letter " + hintChar;
+        else{
+            return "No more hints";
+        }
     }
 
     public LinkedList getWrongGuesses() {

@@ -25,7 +25,6 @@ public class SinglePlayerPanel extends JPanel {
     private JButton hintButton, skipButton;
     private SinglePlayerRound newRound;
     private JLabel[] wrongGuessLabels;
-    private boolean hint;
 
     public SinglePlayerPanel() {
         wrongGuessLabels = new JLabel[9];
@@ -38,7 +37,6 @@ public class SinglePlayerPanel extends JPanel {
 
         // initialize with showing the categories panel
         cardLayout.first(cardPanel);
-        hint = false;
     }
 
     private JPanel makeChooseCategoryPanel() {
@@ -164,9 +162,8 @@ public class SinglePlayerPanel extends JPanel {
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed (ActionEvent event) {
-            if (event.getSource() == hintButton && !hint) {
+            if (event.getSource() == hintButton) {
                 hintLabel.setText(newRound.getHint());
-                hint = true;
             } else if (event.getSource() == skipButton) {
                 //hide the game panel, show categories panel
                 cardLayout.first(cardPanel);
