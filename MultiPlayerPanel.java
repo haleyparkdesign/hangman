@@ -26,6 +26,7 @@ public class MultiPlayerPanel extends JPanel {
     private MultiPlayerRound newRound;
     private JLabel[] wrongGuessLabels1, wrongGuessLabels2;
     String word1, word2;
+    int count = 0;
 
     public MultiPlayerPanel() {
         
@@ -352,6 +353,7 @@ public class MultiPlayerPanel extends JPanel {
 
     private class TextFieldListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            count ++;
             char guessedChar1;
             char guessedChar2;  
             LinkedList<Character> wrongGuesses1 = new LinkedList<Character>();
@@ -371,8 +373,13 @@ public class MultiPlayerPanel extends JPanel {
                 cardPanel.add(gamePlayPanel2, "4");
                 cardLayout.next(cardPanel);
             }
-            newRound = new MultiPlayerRound(word1, word2);
-            wrongGuesses1 = newRound.getWrongGuesses1();
+            
+            if (count == 2) {
+                System.out.println("word1" + word1);
+                System.out.println("word2" + word2);
+                newRound = new MultiPlayerRound(word1, word2);
+            }
+            System.out.println(newRound.word1);
             wrongGuesses2 = newRound.getWrongGuesses2();
             
             if (e.getSource() == guessField1) {

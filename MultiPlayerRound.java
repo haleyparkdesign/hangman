@@ -11,7 +11,7 @@ public class MultiPlayerRound {
     private boolean player2Win;
     private HashSet word1Set;
     private HashSet word2Set;
-    private LinkedList guessed1, guessed2, wrongGuesses1, wrongGuesses2;
+    public LinkedList guessed1, guessed2, wrongGuesses1, wrongGuesses2;
     int user1Points;
     int user2Points;
     String word1;
@@ -34,8 +34,8 @@ public class MultiPlayerRound {
         word2Set = new HashSet();
         guessed1 = new LinkedList();
         guessed2 = new LinkedList();
-        wrongGuesses1 = new LinkedList();
-        wrongGuesses2 = new LinkedList();
+        wrongGuesses1 = new <Character> LinkedList();
+        wrongGuesses2 = new <Character> LinkedList();
         hint1 = false;
         hint2 = false;
 
@@ -206,14 +206,6 @@ public class MultiPlayerRound {
     
     public String getWord2() {
         return this.word2;
-    }
-    
-    public String getWrongGuesses1String() {
-        return wrongGuesses1.toString();
-    }
-   
-    public String getWrongGuesses2String() {
-        return wrongGuesses2.toString();
     }
     
     public LinkedList<Character> getWrongGuesses1() {
