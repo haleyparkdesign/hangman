@@ -10,7 +10,7 @@ import java.util.LinkedList;
 /**
  * GUI elements for single player option
  *
- * @author Haley Park
+ * @author Haley Park, Margaret Harrigan
  * @version May 15, 2018
  */
 public class SinglePlayerPanel extends JPanel {
@@ -26,6 +26,9 @@ public class SinglePlayerPanel extends JPanel {
     private SinglePlayerRound newRound;
     private JLabel[] wrongGuessLabels;
 
+    /**
+     * Constructor for objects of SinglePlayerPanel
+     */
     public SinglePlayerPanel() {
         wrongGuessLabels = new JLabel[9];
         chooseCategoryPanel = makeChooseCategoryPanel();
@@ -39,6 +42,12 @@ public class SinglePlayerPanel extends JPanel {
         cardLayout.first(cardPanel);
     }
 
+    /**
+     * makeChooseCategoryPanel creates the opening panel for the single player panel.
+     * The player will choose which category they want to play based on the options.
+     * 
+     * @return JPanel showing the categories
+     */
     private JPanel makeChooseCategoryPanel() {
         JPanel panel = new JPanel();
 
@@ -55,6 +64,7 @@ public class SinglePlayerPanel extends JPanel {
         panel.add(statusLabel);
         panel.add(new JLabel("     ")); // fills the grid
 
+        //adds the label and button listener to each button
         for (int i = 0; i < categoryNames.length; i++) {
             buttons[i] = new JButton(categoryNames[i]);
             buttons[i].addActionListener(new ButtonListener());
@@ -64,9 +74,17 @@ public class SinglePlayerPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * makeSinglePlayerGamePanel creates the game panel for the single player panel.
+     * It contains scaffolding, letter boxes, a hint button, and a quit button.
+     * 
+     * @return JPanel showing the single player mode
+     */
     private JPanel makeSinglePlayerGamePanel() {
+        //gets how many empty letter boxes should be shown
         int numTextFields = newRound.getOriginal().length();
 
+        //create all the panels
         JPanel panel = new JPanel();
         JPanel topPanel = new JPanel();
         JPanel lettersArea = new JPanel();
@@ -74,11 +92,13 @@ public class SinglePlayerPanel extends JPanel {
         JPanel wrongGuessesArea = new JPanel();
         JPanel bottomPanel = new JPanel();
 
+        //add constraints
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-
+        
         categoryLabel = new JLabel("Category is: " + categoryName, SwingConstants.LEFT);
 
+        //add the guess box
         JPanel guessPanel = new JPanel();
         guessLabel = new JLabel("Guess! ");
         guessField = new JTextField(5);
@@ -125,12 +145,14 @@ public class SinglePlayerPanel extends JPanel {
         }
         lettersArea.add(letterBoxesArea, BorderLayout.NORTH);
 
+        //Add wrong guesses
         for (int i = 0; i < wrongGuessLabels.length; i++) {
             wrongGuessLabels[i] = new JLabel(" ");
             wrongGuessesArea.add(wrongGuessLabels[i]);
         }
         lettersArea.add(wrongGuessesArea, BorderLayout.SOUTH);
 
+        //add the result label
         result = new JLabel("");
         lettersArea.add(result);
         
@@ -139,7 +161,7 @@ public class SinglePlayerPanel extends JPanel {
         c.gridy = 1;
         panel.add(lettersArea, c);
         
-        // Add buttons
+        // Add hint & quit buttons
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 3;
@@ -163,16 +185,30 @@ public class SinglePlayerPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * ButtonListener class performs the desired actions when the buttons are clicked
+     */
     private class ButtonListener implements ActionListener {
+        /**
+         * actionPerformed takes in an event and does the required action based on
+         * the source.
+         * 
+         * @param ActionEvent from one of the listeners
+         */
         public void actionPerformed (ActionEvent event) {
+            //gives a hint
             if (event.getSource() == hintButton) {
                 hintLabel.setText(newRound.getHint());
-            } else if (event.getSource() == skipButton) {
+            } 
+            //skips the round and brings you back to the categories panel
+            else if (event.getSource() == skipButton) {
                 //hide the game panel, show categories panel
                 cardLayout.first(cardPanel);
                 //gamePlayPanel = makeSinglePlayerGamePanel();
                 resetGame();
-            } else {
+            } 
+            //picks a category
+            else {
                 categoryName = "";
                 int randomCategoryIndex; 
                 for (int i = 0; i < categoryNames.length; i++) {
@@ -199,6 +235,9 @@ public class SinglePlayerPanel extends JPanel {
             }
         }
 
+        /**
+         * resetGame returns you to the categories panel
+         */
         private void resetGame() {
             cardPanel.removeAll();
             chooseCategoryPanel = makeChooseCategoryPanel();
@@ -216,7 +255,15 @@ public class SinglePlayerPanel extends JPanel {
         }
     }
 
+    /**
+     * TextFieldListener class gets the guess from the user
+     */
     private class TextFieldListener implements ActionListener {
+        /**
+         * actionPerformed takes in an event and uses it as a guess
+         * 
+         * @param ActionEvent from one of the listeners
+         */
         public void actionPerformed(ActionEvent e) {
             char guessedChar;
             LinkedList<Character> wrongGuesses = newRound.getWrongGuesses();
@@ -225,8 +272,10 @@ public class SinglePlayerPanel extends JPanel {
             System.out.println("Input: " + input);
             guessedChar = input.charAt(0);
             
+            //makes a guess with the input
             newRound.makeGuess(guessedChar);
             
+            //checks to see if the game is over
             if(newRound.didPlayerWin()){
                 result.setText("You Won!");
             }
@@ -236,6 +285,7 @@ public class SinglePlayerPanel extends JPanel {
             
             guessField.setText("");
 
+            //adds the wrong guesses
             for (int i = 0; i < wrongGuesses.size(); i++) {
                 wrongGuessLabels[i].setText("" + wrongGuesses.get(i));
             }
@@ -243,6 +293,12 @@ public class SinglePlayerPanel extends JPanel {
             setImage();
         }
 
+        /**
+         * fillBlanks takes in a correct guess and adds it to the right place in 
+         * the word
+         * 
+         * @param char guessedChar
+         */
         private void fillBlanks(char guessedChar) {
             Vector<Integer> whereToFill = newRound.letterFit(guessedChar);
             for (int i = 0; i < whereToFill.size(); i++) {
@@ -250,6 +306,10 @@ public class SinglePlayerPanel extends JPanel {
             }
         }
 
+        /**
+         * setImage sets the hangman image to the right one based on the number of 
+         * wrong guesses
+         */
         private void setImage() {
             int numWrongGuesses = newRound.getNumWrongGuesses();
             try {

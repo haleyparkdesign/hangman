@@ -7,11 +7,14 @@ import java.awt.event.*;
 /**
  * GUI & driver for the whole program. 
  *
- * @author Haley Park (add your names as you modify the class!)
+ * @author Haley Park, Margaret Harrigan
  * @version May 19, 2018
  */
 
 public class HangmanGUI extends JPanel {
+    /**
+     * Constructor for objects of HangmanGUI
+     */
     public HangmanGUI() {
         JTabbedPane hangmanGUI = new JTabbedPane();
         JPanel singlePlayerTab = new SinglePlayerPanel();
@@ -25,6 +28,11 @@ public class HangmanGUI extends JPanel {
         add(hangmanGUI);
     }
 
+    /**
+     * main method for testing purposes
+     * 
+     * @param String[] args
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame("Hangman");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

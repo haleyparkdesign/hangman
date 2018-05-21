@@ -1,10 +1,13 @@
 #BlueJ class context
 comment0.target=SinglePlayerPanel
-comment0.text=\n\ GUI\ elements\ for\ single\ player\ option\n\n\ @author\ Haley\ Park\n\ @version\ May\ 15,\ 2018\n
+comment0.text=\n\ GUI\ elements\ for\ single\ player\ option\n\n\ @author\ Haley\ Park,\ Margaret\ Harrigan\n\ @version\ May\ 15,\ 2018\n
 comment1.params=
 comment1.target=SinglePlayerPanel()
+comment1.text=\n\ Constructor\ for\ objects\ of\ SinglePlayerPanel\n
 comment2.params=
 comment2.target=javax.swing.JPanel\ makeChooseCategoryPanel()
+comment2.text=\n\ makeChooseCategoryPanel\ creates\ the\ opening\ panel\ for\ the\ single\ player\ panel.\n\ The\ player\ will\ choose\ which\ category\ they\ want\ to\ play\ based\ on\ the\ options.\n\ \n\ @return\ JPanel\ showing\ the\ categories\n
 comment3.params=
 comment3.target=javax.swing.JPanel\ makeSinglePlayerGamePanel()
+comment3.text=\n\ makeSinglePlayerGamePanel\ creates\ the\ game\ panel\ for\ the\ single\ player\ panel.\n\ It\ contains\ scaffolding,\ letter\ boxes,\ a\ hint\ button,\ and\ a\ quit\ button.\n\ \n\ @return\ JPanel\ showing\ the\ single\ player\ mode\n
 numComments=4
