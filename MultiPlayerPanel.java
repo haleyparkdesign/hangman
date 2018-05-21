@@ -22,7 +22,7 @@ public class MultiPlayerPanel extends JPanel {
     private JTextField guessWord1;
     private JTextField guessWord2;
     private JTextField[] letters1,letters2;
-    private JButton hintButton1, skipButton1, hintButton2, skipButton2, result;
+    private JButton hintButton1, skipButton1, hintButton2, skipButton2, result1, result2;
     private MultiPlayerRound newRound;
     private JLabel[] wrongGuessLabels1, wrongGuessLabels2;
     String word1, word2;
@@ -271,18 +271,19 @@ public class MultiPlayerPanel extends JPanel {
     private JPanel makeResultPanel() {
         JPanel panel = new JPanel();
         if (newRound.player1Win()) {            
-            JLabel winner = new JLabel("Player 1 won", JLabel.CENTER);
+            JLabel winner = new JLabel("Player 1 won.", JLabel.CENTER);
             panel.add(winner);
         }
         
         else if (newRound.player2Win()) {
-            JLabel winner = new JLabel("Player 2 won", JLabel.CENTER);
+            JLabel winner = new JLabel("Player 2 won.", JLabel.CENTER);
             panel.add(winner);
         }
         
-        JLabel result = new JLabel("The correct word for player 1 is " + word1 + "\nThe correct word for player 2 is "  + word2, JLabel.SOUTH);
+        JLabel resultLabel = new JLabel("The correct word for player 1 is " + word1 + " . The correct word for player 2 is "  + word2, JLabel.CENTER);
         
-        panel.add(result);
+        panel.add(resultLabel);
+        
  
         return panel;
     }
@@ -308,7 +309,7 @@ public class MultiPlayerPanel extends JPanel {
                 }   
             }
 
-            else if (event.getSource() == result) {
+            else if (event.getSource() == result1 || event.getSource() == result2) {
                 cardLayout.last(cardPanel);            
             
             }
@@ -413,20 +414,22 @@ public class MultiPlayerPanel extends JPanel {
                     
             if (newRound.player1Win()) {
                 JLabel statusLabel = new JLabel("Player 1 won! ", JLabel.CENTER);
-                add(statusLabel);
+                gamePlayPanel1.add(statusLabel);
                 
-                result = new JButton("Reveal Results");
-                add(result);
+                result1 = new JButton("Reveal Results");
+                result1.addActionListener(new ButtonListener());
+                gamePlayPanel1.add(result1);
                 resultPanel = makeResultPanel();
                 cardPanel.add(resultPanel, "5");
                 
             }
             else if (newRound.player2Win()) {
                 JLabel statusLabel = new JLabel("Player 2 Won!", JLabel.CENTER);
-                add(statusLabel);;
+                gamePlayPanel2.add(statusLabel);;
                 
-                result = new JButton("Reveal Results");             
-                add(result);
+                result2 = new JButton("Reveal Results");       
+                result2.addActionListener(new ButtonListener());
+                gamePlayPanel2.add(result2);
                 resultPanel = makeResultPanel();
                 cardPanel.add(resultPanel, "5");
             }
