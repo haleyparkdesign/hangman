@@ -2,11 +2,14 @@
 comment0.target=HangmanRound
 comment1.params=w
 comment1.target=HangmanRound(java.lang.String)
-comment1.text=\n\ Constructor\ for\ objects\ of\ class\ HangmanRound\n\ Multiplayer\ -\ word\ is\ inputted\ by\ the\ user\ and\ passed\ to\ the\ round\n\ SinglePlayer\ -\ word\ is\ chosen\ from\ a\ dictionary\n
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ HangmanRound\n\ Multiplayer\ -\ word\ is\ inputted\ by\ the\ user\ and\ passed\ to\ the\ round\n\ SinglePlayer\ -\ word\ is\ chosen\ from\ a\ dictionary\n\ \n\ @param\ String\ word\n
 comment2.params=
 comment2.target=java.lang.String\ toString()
+comment2.text=\n\ toString\ formats\ the\ hashSet\n\ \n\ @reutrn\ String\n
 comment3.params=
 comment3.target=void\ round()
+comment3.text=\n\ round\ takes\ guesses\ from\ the\ user.\n
 comment4.params=args
 comment4.target=void\ main(java.lang.String[])
+comment4.text=\n\ main\ method\ for\ testing\n\ \n\ @param\ String[]\ args\n
 numComments=5
