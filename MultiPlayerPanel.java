@@ -429,7 +429,7 @@ public class MultiPlayerPanel extends JPanel {
                         wrongGuessLabels1[i].setText("" + wrongGuesses1.get(i));
                     }
                 }   
-                fillBlanks(guessedChar1);
+                fillBlanks1(guessedChar1);
                 setImage();
                                
             }
@@ -445,7 +445,7 @@ public class MultiPlayerPanel extends JPanel {
                     wrongGuessLabels2[i].setText("" + wrongGuesses2.get(i));
                 }
     
-                fillBlanks(guessedChar2);
+                fillBlanks2(guessedChar2);
                 setImage();
             }
               
@@ -490,17 +490,19 @@ public class MultiPlayerPanel extends JPanel {
          * Fills in the correct letters guessed for each game. 
          * @Param    guessedChar   character that is gussed correctly and will be shown in the previously blank grid  
          */
-        private void fillBlanks(char guessedChar) {
+        private void fillBlanks1(char guessedChar) {
             Vector<Integer> whereToFill1 = newRound.letterFit1(guessedChar);
             for (int i = 0; i < whereToFill1.size(); i++) {
                 letters1[whereToFill1.get(i)].setText("" + Character.toUpperCase(guessedChar));
             }
+        }
+
+        private void fillBlanks2(char guessedChar) {
             Vector<Integer> whereToFill2 = newRound.letterFit2(guessedChar);
             for (int i = 0; i < whereToFill2.size(); i++) {
                 letters2[whereToFill2.get(i)].setText("" + Character.toUpperCase(guessedChar));
             }
         }
-        
         /**
          * Updates the hangman image after each round of the game
          */
