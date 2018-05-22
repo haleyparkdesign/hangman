@@ -21,7 +21,7 @@ public class MultiPlayerPanel extends JPanel {
     private JTextField guessWord1;
     private JTextField guessWord2;
     private JTextField[] letters1,letters2;
-    private JButton hintButton1, skipButton1, hintButton2, skipButton2, result1, result2, startover;
+    private JButton hintButton1, hintButton2, nextPlayer, results, startover;
     private MultiPlayerRound newRound;
     private JLabel[] wrongGuessLabels1, wrongGuessLabels2;
     String word1, word2;
@@ -85,7 +85,7 @@ public class MultiPlayerPanel extends JPanel {
      */
     private JPanel makeMultiPlayerGamePanel1() {
         JPanel panel = new JPanel();
-        JLabel currentPlayerLabel = new JLabel("Player 1's turn", JLabel.CENTER);
+        JLabel currentPlayerLabel = new JLabel("Player 1's turn. ", JLabel.CENTER);
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         
@@ -167,9 +167,7 @@ public class MultiPlayerPanel extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 3;
         c.gridy = 3;
-        skipButton1 = new JButton("Skip/Next Round");
-        skipButton1.addActionListener(new ButtonListener());
-        panel.add(skipButton1, c);
+
         panel.add(currentPlayerLabel);
 
         return panel;
@@ -181,7 +179,7 @@ public class MultiPlayerPanel extends JPanel {
      */
     private JPanel makeMultiPlayerGamePanel2() {
         JPanel panel = new JPanel();
-        JLabel currentPlayerLabel = new JLabel("Player 2's turn", JLabel.CENTER);
+        JLabel currentPlayerLabel = new JLabel("Player 2's turn. ", JLabel.CENTER);
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -263,9 +261,7 @@ public class MultiPlayerPanel extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 3;
         c.gridy = 3;
-        skipButton2 = new JButton("Skip/Next Round");
-        skipButton2.addActionListener(new ButtonListener());
-        panel.add(skipButton2, c);
+
 
         panel.add(currentPlayerLabel);
         
@@ -278,14 +274,21 @@ public class MultiPlayerPanel extends JPanel {
      */
     private JPanel makeResultPanel() {
         JPanel panel = new JPanel();
-        if (newRound.player1Win()) {            
-            JLabel winner = new JLabel("Player 1 won.", JLabel.CENTER);
-            panel.add(winner);
+        if (newRound.player1Win() == newRound.player2Win()) {            
+            JLabel resultLabel = new JLabel("It's a tie!", JLabel.CENTER);
+            panel.add(resultLabel);
         }
         
-        else if (newRound.player2Win()) {
-            JLabel winner = new JLabel("Player 2 won.", JLabel.CENTER);
-            panel.add(winner);
+        else {
+            if (newRound.player1Win()) {
+                JLabel resultLabel = new JLabel("Player 1 won!", JLabel.CENTER);
+                panel.add(resultLabel);
+            }
+            else {
+                JLabel resultLabel = new JLabel("Player 2 won!", JLabel.CENTER);
+                panel.add(resultLabel);
+            }
+                
         }        
         JLabel resultLabel = new JLabel("The correct word for player 1 is " + word1 + " . The correct word for player 2 is "  + word2, JLabel.CENTER);
         panel.add(resultLabel);         
@@ -313,16 +316,11 @@ public class MultiPlayerPanel extends JPanel {
                 }
             } 
             
-            else if (event.getSource() == skipButton1 || event.getSource() == skipButton2) {
-                if (event.getSource() == skipButton1) {
-                    cardLayout.next(cardPanel);                
-                }
-                else {
-                    cardLayout.previous(cardPanel);
-                }   
+            else if (event.getSource() == nextPlayer ) {
+                cardLayout.next(cardPanel);
             }
 
-            else if (event.getSource() == result1 || event.getSource() == result2) {
+            else if (event.getSource() == results) {
                 cardLayout.last(cardPanel);                        
             }
             
@@ -353,11 +351,9 @@ public class MultiPlayerPanel extends JPanel {
             letters1 = null;
             letters2 = null;
             hintButton1 = null;
-            skipButton1 = null;
             hintButton2 = null;
-            skipButton2 = null;
-            result1 = null;
-            result2 = null;
+            nextPlayer = null;
+            results = null;
             startover = null;
             newRound = null;
             wrongGuessLabels1 = null;
@@ -415,7 +411,8 @@ public class MultiPlayerPanel extends JPanel {
                 newRound = new MultiPlayerRound(word1, word2);
             }
             System.out.println(newRound.word1);
-            wrongGuesses2 = newRound.getWrongGuesses2();            
+            wrongGuesses2 = newRound.getWrongGuesses2();   
+            wrongGuesses1 = newRound.getWrongGuesses1();       
             if (e.getSource() == guessField1) {
                 String input = guessField1.getText();
                 System.out.println("Input: " + input);
@@ -448,44 +445,35 @@ public class MultiPlayerPanel extends JPanel {
                 fillBlanks2(guessedChar2);
                 setImage();
             }
-              
+                                  
+            if (newRound.getPlayer1Over()) {
+                JLabel statusLabel = new JLabel("Player 1's turn is up! ", JLabel.CENTER);
+  
+                gamePlayPanel1.add(statusLabel);
                     
-            if (newRound.player1Win()) {
-                JLabel statusLabel1 = new JLabel("Player 1 won! ", JLabel.CENTER);
-                JLabel statusLabel2 = new JLabel("Player 1 won! ", JLabel.CENTER);
-                gamePlayPanel1.add(statusLabel1);
-                gamePlayPanel2.add(statusLabel2);
-                
-                result1 = new JButton("Reveal Results");
-                result1.addActionListener(new ButtonListener());
-                result2 = new JButton("Reveal Results");
-                result2.addActionListener(new ButtonListener());
-                
-                gamePlayPanel1.add(result1);
-                gamePlayPanel2.add(result2);
-                resultPanel = makeResultPanel();
-                cardPanel.add(resultPanel, "5");
+                nextPlayer = new JButton("Next Player");
+                nextPlayer.addActionListener(new ButtonListener());
+                                
+                gamePlayPanel1.add(nextPlayer);
+
                 
             }
-            else if (newRound.player2Win()) {
-                JLabel statusLabel1 = new JLabel("Player 2 Won!", JLabel.CENTER);
-                JLabel statusLabel2 = new JLabel("Player 2 Won!", JLabel.CENTER);
-                
-                gamePlayPanel1.add(statusLabel1);
-                gamePlayPanel2.add(statusLabel2);
-                
-                result1 = new JButton("Reveal Results");
-                result1.addActionListener(new ButtonListener());
-                result2 = new JButton("Reveal Results");       
-                result2.addActionListener(new ButtonListener());
-                gamePlayPanel1.add(result1);
-                gamePlayPanel2.add(result2);             
+            if (newRound.getPlayer2Over()) {
+                JLabel statusLabel = new JLabel("Player 2's turn is up! ", JLabel.CENTER);
+  
+                gamePlayPanel2.add(statusLabel);
+                    
+                results = new JButton("Show Results");
+                results.addActionListener(new ButtonListener());
+                                
+                gamePlayPanel2.add(results);
                 resultPanel = makeResultPanel();
                 cardPanel.add(resultPanel, "5");
             }
 
         }
 
+        
         /**
          * Fills in the correct letters guessed for each game. 
          * @Param    guessedChar   character that is gussed correctly and will be shown in the previously blank grid  

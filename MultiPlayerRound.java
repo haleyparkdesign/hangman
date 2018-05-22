@@ -8,6 +8,8 @@ import java.io.*;
 public class MultiPlayerRound {
     private Vector<String> dictionary;
     private boolean player1Win;
+    private boolean player1Over;
+    private boolean player2Over;
     private boolean player2Win;
     private HashSet word1Set;
     private HashSet word2Set;
@@ -22,7 +24,7 @@ public class MultiPlayerRound {
     /**
      * Constructor for objects of class SinglePlayerRound
      */
-    public MultiPlayerRound (String w1, String w2) {
+    public MultiPlayerRound (String w2, String w1) {
         this.word1 = w1;
         this.word2 = w2;
         int randomIndex;
@@ -36,6 +38,8 @@ public class MultiPlayerRound {
         wrongGuesses2 = new <Character> LinkedList();
         hint1 = false;
         hint2 = false;
+        player1Over = false;
+        player2Over = false;
 
         //creates hashSet() based on word1
         for (int i = 0; i < word1.length(); i++) {
@@ -74,17 +78,16 @@ public class MultiPlayerRound {
                 + " guesses. These are the letters you guessed: " + guessed1);
         }
         
-        if (wrongGuesses2.size() == 2 || count1 == word1Set.size()) {
-            player1Win = true;
-            player2Win = false;
-            System.out.println("player 1 won");            
+        if (wrongGuesses1.size() == 9 || count1 == word1Set.size()) {
+            player1Over = true;
+            if (wrongGuesses1.size() == 9) {
+                player1Win = false;            
+            }
+            else {
+                player1Win = true;
+            }
         }
 
-        if (wrongGuesses1.size() == 9 || count2 == word2Set.size()) {
-            player1Win = false;
-            player2Win = true;
-            System.out.println("player 2 won");           
-        }
     }
 
     /**
@@ -110,20 +113,19 @@ public class MultiPlayerRound {
             System.out.println("The word was " + word2 + ". It took Player2 " + guessed2.size()
                 + " guesses. These are the letters you guessed: " + guessed2);
         }
-       
-        if (wrongGuesses2.size() == 9 || count1 == word1Set.size()) {
-            player2Win = false;
-            player1Win = true;
-            System.out.println("player 1 won");           
-        }
         
-        if (wrongGuesses1.size() == 9 || count2 == word2Set.size()) {
-            player2Win = true;
-            player1Win = false;
-            System.out.println("player 2 won");         
+        if (wrongGuesses2.size() == 9 || count2 == word2Set.size()) {
+            player2Over = true;
+            System.out.println("player2 over");
+            if (wrongGuesses2.size() == 9) {
+                player2Win = false;            
+            }
+            else {
+                player2Win = true;
+            }
         }
     }
-
+    
     /**
      * Provides a limit of 1 hint for the first user
      */
@@ -210,8 +212,7 @@ public class MultiPlayerRound {
         }        
         return correctLetterPos;
     }
-    
-    
+        
     /**
      * provides the LinkedList that contains all the wrong character guessed by the first user
      * @return     the LinkedList that contains all the wrong characters guessed by the first user
@@ -259,4 +260,21 @@ public class MultiPlayerRound {
     public boolean player2Win() {
         return player2Win;
     }
+    
+    /**
+     * provides the boolean that indicates whether or not the first user has finished his/her side of the game
+     * @return     the boolean that indicates whether the first player has finished the game
+     */   
+    public boolean getPlayer1Over() {
+        return player1Over;
+    }
+
+    /**
+     * provides the boolean that indicates whether or not the second user has finished his/her side of the game
+     * @return     the boolean that indicates whether the second player has finished the game
+     */ 
+    public boolean getPlayer2Over() {
+        return player2Over;
+    }    
+    
 }

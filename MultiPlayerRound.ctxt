@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=MultiPlayerRound
 comment0.text=\n\ @author\ Denise\ Chai,\ Margaret\ Harrigan\n\ @version\ 20\ May\ 2018\n
-comment1.params=w1\ w2
+comment1.params=w2\ w1
 comment1.target=MultiPlayerRound(java.lang.String,\ java.lang.String)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ SinglePlayerRound\n
 comment10.params=
@@ -16,6 +16,12 @@ comment12.text=\n\ provides\ the\ boolean\ that\ indicates\ whether\ or\ not\ th
 comment13.params=
 comment13.target=boolean\ player2Win()
 comment13.text=\n\ provides\ the\ boolean\ that\ indicates\ whether\ or\ not\ the\ second\ user\ has\ won\n\ @return\ \ \ \ \ the\ boolean\ that\ indicates\ whether\ the\ second\ player\ has\ won\ or\ not\n
+comment14.params=
+comment14.target=boolean\ getPlayer1Over()
+comment14.text=\n\ provides\ the\ boolean\ that\ indicates\ whether\ or\ not\ the\ first\ user\ has\ finished\ his/her\ side\ of\ the\ game\n\ @return\ \ \ \ \ the\ boolean\ that\ indicates\ whether\ the\ first\ player\ has\ finished\ the\ game\n
+comment15.params=
+comment15.target=boolean\ getPlayer2Over()
+comment15.text=\n\ provides\ the\ boolean\ that\ indicates\ whether\ or\ not\ the\ second\ user\ has\ finished\ his/her\ side\ of\ the\ game\n\ @return\ \ \ \ \ the\ boolean\ that\ indicates\ whether\ the\ second\ player\ has\ finished\ the\ game\n
 comment2.params=guess
 comment2.target=void\ makeGuess1(char)
 comment2.text=\n\ Allows\ user\ 1\ to\ make\ a\ guess\n\ @Parameter\ \ \ \ \ guess\ \ \ \ \ the\ character\ the\ user\ 1\ is\ guessing\ and\ inputting\ into\ the\ textfield\n
@@ -40,4 +46,4 @@ comment8.text=\n\ provides\ the\ LinkedList\ that\ contains\ all\ the\ wrong\ ch
 comment9.params=
 comment9.target=java.util.LinkedList\ getWrongGuesses2()
 comment9.text=\n\ provides\ the\ LinkedList\ that\ contains\ all\ the\ wrong\ character\ guessed\ by\ the\ second\ user\n\ @return\ \ \ \ \ the\ LinkedList\ that\ contains\ all\ the\ wrong\ characters\ guessed\ by\ the\ second\ user\n
-numComments=14
+numComments=16
