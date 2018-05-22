@@ -24,7 +24,7 @@ public class MultiPlayerRound {
     /**
      * Constructor for objects of class SinglePlayerRound
      */
-    public MultiPlayerRound (String w2, String w1) {
+    public MultiPlayerRound (String w1, String w2) {
         this.word1 = w1;
         this.word2 = w2;
         int randomIndex;
