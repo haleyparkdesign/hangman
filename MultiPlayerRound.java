@@ -67,9 +67,21 @@ public class MultiPlayerRound {
                     guessed1.add(guess);
                 } else {
                     System.out.println(guess + " is not in the word :(");
-                    wrongGuesses1.add(guess);
+                    if (wrongGuesses1.isEmpty() || guess > (char) wrongGuesses1.getLast()) {
+                            wrongGuesses1.add(guess);
+                    }
+                    //add it to the linked list where it belongs alphabetically 
+                    else{
+                        for (int i = 0; i < guessed1.size(); i++){
+                            if (guess < (char) wrongGuesses1.get(i)){
+                                    wrongGuesses1.add(i, guess);
+                                    break;
+                            }
+                        }
+                    }
                     guessed1.add(guess);
                 }
+
             } else {
                 System.out.println("You've already guessed this letter. Try again.");
             }
@@ -103,7 +115,18 @@ public class MultiPlayerRound {
                     guessed2.add(guess);
                 } else {
                     System.out.println(guess + " is not in the word :(");
-                    wrongGuesses2.add(guess);
+                    if (wrongGuesses2.isEmpty() || guess > (char) wrongGuesses2.getLast()) {
+                            wrongGuesses2.add(guess);
+                    }
+                    //add it to the linked list where it belongs alphabetically 
+                    else{
+                        for (int i = 0; i < guessed1.size(); i++){
+                            if (guess < (char) wrongGuesses2.get(i)){
+                                    wrongGuesses2.add(i, guess);
+                                    break;
+                            }
+                        }
+                    }
                     guessed2.add(guess);
                 }
             } else {
