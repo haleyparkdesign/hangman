@@ -294,7 +294,7 @@ public class MultiPlayerPanel extends JPanel {
         panel.add(resultLabel);         
         
         //this button starts over the game
-        startover = new JButton("Start Over");
+        startover = new JButton("Play Again");
         startover.addActionListener(new ButtonListener());
                
         panel.add(startover);
