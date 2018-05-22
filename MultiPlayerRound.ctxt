@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=MultiPlayerRound
-comment0.text=\n\ @author\ Denise\ Chai,\ Margaret\ Harrigan\n\ @version\ 20\ May\ 2018\n
+comment0.text=\n\ MultiPlayerRound\ is\ the\ backend\ code\ for\ the\ MultiPlayer\ round\ of\ the\ game.\ \n\ @author\ Denise\ Chai,\ Margaret\ Harrigan\n\ @version\ 20\ May\ 2018\n
 comment1.params=w1\ w2
 comment1.target=MultiPlayerRound(java.lang.String,\ java.lang.String)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ SinglePlayerRound\n
@@ -30,10 +30,10 @@ comment3.target=void\ makeGuess2(char)
 comment3.text=\n\ Allows\ user\ 2\ to\ make\ a\ guess\n\ @Parameter\ \ \ \ \ guess\ \ \ \ \ the\ character\ user\ 2\ is\ guessing\ and\ inputting\ into\ the\ textfield\n
 comment4.params=
 comment4.target=java.lang.String\ getHint1()
-comment4.text=\n\ Provides\ a\ limit\ of\ 1\ hint\ for\ the\ first\ user\n
+comment4.text=\n\ Provides\ a\ limit\ of\ 1\ hint\ for\ the\ first\ user\n\ @return\ \ \ \ if\ it's\ the\ first\ time\ the\ user\ is\ accessing\ the\ hint\ button,\ this\ will\ provide\ the\ first\ letter\ not\ guessed\ yet\ in\ the\ word.\n\ \ \ \ \ \ \ \ \ \ \ \ if\ it's\ other\ than\ the\ first\ time\ the\ user\ is\ accessing\ hint,\ the\ string\ will\ say\ "No\ more\ hints"\n
 comment5.params=
 comment5.target=java.lang.String\ getHint2()
-comment5.text=\n\ Provides\ a\ limti\ of\ 1\ hint\ for\ the\ second\ user\n
+comment5.text=\n\ Provides\ a\ limit\ of\ 1\ hint\ for\ the\ second\ user\n\ @return\ \ \ \ if\ it's\ the\ first\ time\ the\ user\ is\ accessing\ the\ hint\ button,\ this\ will\ provide\ the\ first\ letter\ not\ guessed\ yet\ in\ the\ word.\n\ \ \ \ \ \ \ \ \ \ \ \ if\ it's\ other\ than\ the\ first\ time\ the\ user\ is\ accessing\ hint,\ the\ string\ will\ say\ "No\ more\ hints"\n
 comment6.params=guess
 comment6.target=java.util.Vector\ letterFit1(char)
 comment6.text=\n\ Places\ the\ character\ guess\ into\ the\ next\ empty\ blank\ grid\ in\ the\ game\ interface\ for\ the\ first\ user\n\ @Param\ \ \ \ \ guess\ \ \ \ the\ new\ correct\ letter\ guessed\ by\ the\ first\ user\ that\ will\ appear\ in\ the\ correct\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positions\ in\ the\ blank\ grid\n\ @Return\ \ \ \ \ \ \ \ \ \ \ \ \ a\ vector\ of\ integers\ that\ provide\ the\ index\ for\ the\ correct\ position\ of\ the\ guessed\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ character\ that\ will\ appear\ in\ the\ blank\ grid\ \n

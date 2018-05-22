@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 /**
+ * MultiPlayerRound is the backend code for the MultiPlayer round of the game. 
  * @author Denise Chai, Margaret Harrigan
  * @version 20 May 2018
  */
@@ -60,13 +61,17 @@ public class MultiPlayerRound {
         if (!player1Win && !player2Win ){
             if (!guessed1.contains(guess)) {
                 if (word1.indexOf(guess) >= 0) {
+                    // if the letter is correct and hasn't been guessed before, add it to guessed and increment count1
                     System.out.println(count1);
                     System.out.println(guess + " is in the word");
                     count1++;          
                     System.out.println(count1);
-                    guessed1.add(guess);
+                    guessed1.add(guess); 
                 } else {
+                    //if the letter is not correct and hasn't been guessed before, add the letter to wrongGuesses1 and guessed1
                     System.out.println(guess + " is not in the word :(");
+                    //add it to the wrong guesses linked list if it's the first
+                    //letter alphabetically or the first guess
                     if (wrongGuesses1.isEmpty() || guess > (char) wrongGuesses1.getLast()) {
                             wrongGuesses1.add(guess);
                     }
@@ -90,6 +95,7 @@ public class MultiPlayerRound {
                 + " guesses. These are the letters you guessed: " + guessed1);
         }
         
+        //updates on the status of player1's game once he/she wins/loses
         if (wrongGuesses1.size() == 9 || count1 == word1Set.size()) {
             player1Over = true;
             if (wrongGuesses1.size() == 9) {
@@ -110,11 +116,15 @@ public class MultiPlayerRound {
         if (wrongGuesses2.size() <= 9 ){
             if (!guessed2.contains(guess)) {
                 if (word2.indexOf(guess) >= 0) {
+                    // if the letter is correct and hasn't been guessed before, add it to guessed and increment count2
                     System.out.println(guess + " is in the word");
                     count2++;
                     guessed2.add(guess);
                 } else {
+                    //if the letter is not correct and hasn't been guessed before, add the letter to wrongGuesses2 and guessed2
                     System.out.println(guess + " is not in the word :(");
+                    //add it to the wrong guesses linked list if it's the first
+                    //letter alphabetically or the first guess                    
                     if (wrongGuesses2.isEmpty() || guess > (char) wrongGuesses2.getLast()) {
                             wrongGuesses2.add(guess);
                     }
@@ -137,6 +147,7 @@ public class MultiPlayerRound {
                 + " guesses. These are the letters you guessed: " + guessed2);
         }
         
+        //updates on the status of player2's game once he/she wins/loses
         if (wrongGuesses2.size() == 9 || count2 == word2Set.size()) {
             player2Over = true;
             System.out.println("player2 over");
@@ -151,15 +162,21 @@ public class MultiPlayerRound {
     
     /**
      * Provides a limit of 1 hint for the first user
+     * @return    if it's the first time the user is accessing the hint button, this will provide the first letter not guessed yet in the word.
+     *            if it's other than the first time the user is accessing hint, the string will say "No more hints"
      */
     public String getHint1() {
+        //if they haven't guessed the first letter yet
         if (!hint1){
             String hintChar = "";
+            //if they haven't guessed the first letter yet
             if (!guessed1.contains(word1.charAt(0))) {
                 hintChar = word1.substring(0,1);
                 hint1 = true;
                 return "Starts with: " + hintChar;
-            } else {
+            } 
+            //gives a letter in the word they haven't guessed 
+            else {
                 for (int i = 1; i < word1.length(); i++) {
                     if (!guessed1.contains(word1.charAt(i))) {
                         hintChar = word1.substring(i,i+1);
@@ -176,16 +193,22 @@ public class MultiPlayerRound {
     }
     
     /**
-     * Provides a limti of 1 hint for the second user
-     */    
+     * Provides a limit of 1 hint for the second user
+     * @return    if it's the first time the user is accessing the hint button, this will provide the first letter not guessed yet in the word.
+     *            if it's other than the first time the user is accessing hint, the string will say "No more hints"
+     */  
     public String getHint2() {
+        //if they haven't guessed the first letter yet
         if (!hint2){
             String hintChar = "";
+            //if they haven't guessed the first letter yet
             if (!guessed2.contains(word2.charAt(0))) {
                 hintChar = word2.substring(0,1);
                 hint2 = true;
                 return "Starts with: " + hintChar;
-            } else {
+            } 
+            //gives a letter in the word they haven't guessed 
+            else {
                 for (int i = 1; i < word2.length(); i++) {
                     if (!guessed2.contains(word1.charAt(i))) {
                         hintChar = word2.substring(i,i+1);
